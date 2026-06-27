@@ -1,0 +1,15 @@
+{
+  "title": "Day 2 — Lab 16: Rollouts & Rollbacks",
+  "description": "Update Deployments with zero downtime and rollback when things go wrong.",
+  "difficulty": "intermediate",
+  "time": "30",
+  "details": {
+    "steps": [
+      {"title": "Rolling Updates", "text": "step1/text.md"},
+      {"title": "Rollbacks", "text": "step2/text.md"}
+    ],
+    "intro": {"text": "intro.md"},
+    "finish": {"text": "finish.md"}
+  },
+  "backend": {"imageid": "kubernetes-kubeadm-2nodes"}
+}
