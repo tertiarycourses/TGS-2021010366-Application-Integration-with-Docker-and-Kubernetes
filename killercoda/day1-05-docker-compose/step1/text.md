@@ -32,13 +32,13 @@ services:
       - "5001:5000"
 YEOF
 
-docker compose up -d
-docker compose ps
+docker-compose up -d
+docker-compose ps
 curl http://localhost:5001
-docker compose logs
-docker compose exec web python -c "print('inside the container!')"
-docker compose stop
-docker compose start
-docker compose down
+docker-compose logs
+docker-compose exec web python -c "print('inside the container!')"
+docker-compose stop
+docker-compose start
+docker-compose down
 cd ..
 ```
