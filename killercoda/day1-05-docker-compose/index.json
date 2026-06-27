@@ -12,5 +12,5 @@
     "intro": {"text": "intro.md"},
     "finish": {"text": "finish.md"}
   },
-  "backend": {"imageid": "docker"}
+  "backend": {"imageid": "ubuntu"}
 }
