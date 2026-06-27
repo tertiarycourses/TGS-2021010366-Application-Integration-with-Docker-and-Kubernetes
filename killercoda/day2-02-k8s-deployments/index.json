@@ -1,0 +1,15 @@
+{
+  "title": "Day 2 — Lab 15: Kubernetes Deployments",
+  "description": "Deploy and scale applications with self-healing Kubernetes Deployments.",
+  "difficulty": "beginner",
+  "time": "30",
+  "details": {
+    "steps": [
+      {"title": "Deployments — Imperative", "text": "step1/text.md"},
+      {"title": "Deployments — Declarative YAML", "text": "step2/text.md"}
+    ],
+    "intro": {"text": "intro.md"},
+    "finish": {"text": "finish.md"}
+  },
+  "backend": {"imageid": "kubernetes-kubeadm-2nodes"}
+}
