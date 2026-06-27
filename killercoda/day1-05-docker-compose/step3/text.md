@@ -73,11 +73,11 @@ volumes:
   redisdata:
 YEOF
 
-docker compose up -d
-docker compose ps
+docker-compose up -d
+docker-compose ps
 curl http://localhost:3000
 curl http://localhost:3000/db
 curl http://localhost:3000/health
-docker compose down -v
+docker-compose down -v
 cd ..
 ```
