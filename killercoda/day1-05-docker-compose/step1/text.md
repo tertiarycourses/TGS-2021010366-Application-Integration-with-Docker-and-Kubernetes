@@ -36,7 +36,7 @@ docker-compose up -d
 docker-compose ps
 curl http://localhost:5001
 docker-compose logs
-docker-compose exec web python -c "print('inside the container!')"
+docker-compose exec web python -c "print('Running inside the container')"
 docker-compose stop
 docker-compose start
 docker-compose down
