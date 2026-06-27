@@ -41,12 +41,12 @@ services:
     image: redis:7-alpine
 YEOF
 
-docker compose up -d
-docker compose ps
+docker-compose up -d
+docker-compose ps
 curl http://localhost:5001
 curl http://localhost:5001
 curl http://localhost:5001
-docker compose down
+docker-compose down
 cd ..
 ```
 
