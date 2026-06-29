@@ -82,7 +82,7 @@ Every sub‑activity follows the same shape — **Goal → Visual → Steps → 
 | **A web browser** | Open the apps you run (`http://localhost:…`) | any modern browser |
 | **The lab files** | Dockerfiles, YAML, sample apps | [GitHub repo](https://github.com/tertiarycourses/TGS-2021010366-docker-kubernetes) |
 
-> ⚠️ **No local install?** You can run all the **Kubernetes** labs in a free browser sandbox: **[killercoda.com/playgrounds/scenario/kubernetes](https://killercoda.com/playgrounds/scenario/kubernetes)**. `kubectl` is pre‑installed there.
+> ⚠️ **No local install?** You can run all the **Kubernetes** labs in a free browser sandbox via the course KillerCoda page: **[killercoda.com/tertiary-labs/course/killercoda](https://killercoda.com/tertiary-labs/course/killercoda)**. `kubectl` is pre‑installed there.
 
 <a name="install-docker"></a>
 ### 0.2 Install Docker Desktop
@@ -126,7 +126,7 @@ brew install kubectl
 kubectl version --client
 ```
 
-**Option C — Browser sandbox:** open **[killercoda Kubernetes playground](https://killercoda.com/playgrounds/scenario/kubernetes)** — nothing to install.
+**Option C — Browser sandbox:** open **[KillerCoda course page](https://killercoda.com/tertiary-labs/course/killercoda)** — nothing to install.
 
 ✅ **Verify the cluster is reachable:**
 
@@ -226,6 +226,8 @@ stateDiagram-v2
 ### 1a — Run Your First Container (Lab 1)
 
 **Goal:** start an interactive Ubuntu container, look inside it, and list containers.
+
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-01-docker-fundamentals *(covers Labs 1–4)*
 
 Folder: [`docker/lab1/`](docker/lab1/)
 
@@ -560,6 +562,8 @@ CMD ["python", "app.py"]
 
 **Goal:** keep data alive after a container is removed using a **named volume**, and live‑share host files using a **bind mount**.
 
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-02-docker-storage *(covers Labs 5a–5b)*
+
 Folder: [`docker/lab5/`](docker/lab5/)
 
 ```mermaid
@@ -702,6 +706,8 @@ CMD ["python", "app.py"]
 
 **Goal:** put two containers on a custom network so they can reach each other **by name**, then disconnect/reconnect.
 
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-03-docker-networking *(covers Labs 6–7)*
+
 Folder: [`docker/lab6/`](docker/lab6/)
 
 ```mermaid
@@ -821,6 +827,8 @@ flowchart LR
 ### 1j — Configure with Environment Variables (Lab 8)
 
 **Goal:** pass configuration into a container at runtime, overriding Dockerfile defaults.
+
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-04-docker-config *(covers Lab 8)*
 
 Folder: [`docker/lab8/`](docker/lab8/) — app prints `MY_NAME` and `MY_ENV`.
 
@@ -1006,6 +1014,8 @@ flowchart LR
 ### 2a — Single Service with Compose (Lab 10)
 
 **Goal:** run one Flask service from a Compose file and use the core `compose` commands.
+
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-05-docker-compose *(covers Labs 10–12)*
 
 Folder: [`docker/lab10/`](docker/lab10/)
 
@@ -1216,7 +1226,7 @@ This Compose file shows the advanced keys from the slides:
 
 Folder: [`kubernetes/`](kubernetes/) (labs 13–15)
 
-> ⚠️ **Before you start Activity 3:** make sure a cluster is running (Docker Desktop Kubernetes, or the [killercoda playground](https://killercoda.com/playgrounds/scenario/kubernetes)) and `kubectl get nodes` shows a `Ready` node.
+> ⚠️ **Before you start Activity 3:** make sure a cluster is running (Docker Desktop Kubernetes, or the [KillerCoda course sandbox](https://killercoda.com/tertiary-labs/course/killercoda)) and `kubectl get nodes` shows a `Ready` node.
 
 A Kubernetes cluster = one **control plane** (API Server, Scheduler, Controller Manager, etcd) + one or more **worker nodes** that run your Pods:
 
@@ -1246,6 +1256,8 @@ flowchart LR
 ### 3a — Create & Inspect Pods (Lab 13)
 
 **Goal:** create the smallest deployable unit — a Pod — both imperatively (a command) and declaratively (YAML), and inspect it.
+
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-01-k8s-pods-namespaces *(covers Labs 13–14)*
 
 Folder: [`kubernetes/lab13/`](kubernetes/lab13/) — includes `pod.yaml`.
 
@@ -1404,6 +1416,8 @@ flowchart TB
 
 **Goal:** manage many identical Pods with a Deployment — scale up/down and watch it recreate Pods automatically.
 
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-02-k8s-deployments *(covers Lab 15)*
+
 Folder: [`kubernetes/lab15/`](kubernetes/lab15/) — includes `deployment.yaml`.
 
 A Deployment manages a ReplicaSet, which keeps the desired number of Pods alive:
@@ -1494,6 +1508,8 @@ Folder: [`kubernetes/`](kubernetes/) (labs 16–19)
 
 **Goal:** ship a new image version with a rolling update, track revision history, and roll back when needed.
 
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-03-k8s-rollouts *(covers Lab 16)*
+
 Folder: [`kubernetes/lab16/`](kubernetes/lab16/) — includes `deployment.yaml`.
 
 ```mermaid
@@ -1555,6 +1571,8 @@ flowchart LR
 ### 4b — Expose Pods with Services (Lab 17)
 
 **Goal:** give Pods a stable network identity. Pods are ephemeral (their IPs change); a Service gives a fixed name + load balancing.
+
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-04-k8s-services *(covers Lab 17)*
 
 Folder: [`kubernetes/lab17/`](kubernetes/lab17/) — includes `deployment.yaml`, `service.yaml`.
 
@@ -1635,6 +1653,8 @@ flowchart TD
 ### 4c — Volumes, PV & PVC (Lab 18)
 
 **Goal:** share data between containers in a Pod (`emptyDir`) and persist data beyond a Pod's life with a PersistentVolume + PersistentVolumeClaim.
+
+> 🔗 **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-05-k8s-storage-jobs *(covers Labs 18–19)*
 
 Folder: [`kubernetes/lab18/`](kubernetes/lab18/) — includes `emptydir-pod.yaml`, `pv.yaml`, `pvc.yaml`, `pod-with-pvc.yaml`.
 
