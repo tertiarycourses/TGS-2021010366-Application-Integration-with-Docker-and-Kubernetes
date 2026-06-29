@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: countdown
+spec:
+  completions: 3
+  parallelism: 2
+  template:
+    spec:
+      containers:
+        - name: counter
+          image: busybox
+          command: ["sh", "-c", "echo 'Processing item...' && sleep 5 && echo 'Done!'"]
+      restartPolicy: Never

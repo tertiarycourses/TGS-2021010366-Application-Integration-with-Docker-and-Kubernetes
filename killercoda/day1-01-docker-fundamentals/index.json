@@ -1,0 +1,17 @@
+{
+  "title": "Day 1 — Lab 1-4: Docker Fundamentals",
+  "description": "Run your first container, build custom images, and package a Flask web app in Docker.",
+  "difficulty": "beginner",
+  "time": "45",
+  "details": {
+    "steps": [
+      {"title": "Lab 1: Run Your First Container", "text": "step1/text.md"},
+      {"title": "Lab 2: Run Nginx and Copy Files", "text": "step2/text.md"},
+      {"title": "Lab 3: Build a Python Image", "text": "step3/text.md"},
+      {"title": "Lab 4: Flask App in Docker", "text": "step4/text.md"}
+    ],
+    "intro": {"text": "intro.md"},
+    "finish": {"text": "finish.md"}
+  },
+  "backend": {"imageid": "ubuntu"}
+}

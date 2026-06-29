@@ -1,0 +1,14 @@
+{
+  "title": "Day 1 — Lab 8: Environment Variables",
+  "description": "Configure containers at runtime using environment variables and env files.",
+  "difficulty": "beginner",
+  "time": "20",
+  "details": {
+    "steps": [
+      {"title": "Environment Variables", "text": "step1/text.md"}
+    ],
+    "intro": {"text": "intro.md"},
+    "finish": {"text": "finish.md"}
+  },
+  "backend": {"imageid": "ubuntu"}
+}

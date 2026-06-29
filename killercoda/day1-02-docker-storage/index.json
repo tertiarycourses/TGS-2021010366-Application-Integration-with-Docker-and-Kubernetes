@@ -1,0 +1,15 @@
+{
+  "title": "Day 1 — Lab 5: Docker Storage",
+  "description": "Persist data with named volumes and bind mounts.",
+  "difficulty": "beginner",
+  "time": "25",
+  "details": {
+    "steps": [
+      {"title": "Named Volumes", "text": "step1/text.md"},
+      {"title": "Bind Mounts", "text": "step2/text.md"}
+    ],
+    "intro": {"text": "intro.md"},
+    "finish": {"text": "finish.md"}
+  },
+  "backend": {"imageid": "ubuntu"}
+}

@@ -12,3 +12,11 @@ Docker_Kubernetes_v*.pptx
 # OS
 .DS_Store
 Thumbs.db
+
+# Assessment answer files
+.answer.md
+.pp-assessment-answer.md
+
+# Secrets
+.env
+hosts.txt

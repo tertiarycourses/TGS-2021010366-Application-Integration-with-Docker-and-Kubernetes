@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-job
+spec:
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup
+              image: busybox
+              command: ["sh", "-c", "echo 'Backup started at $(date)' && sleep 3 && echo 'Backup complete!'"]
+          restartPolicy: Never
