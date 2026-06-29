@@ -1,61 +1,81 @@
-# Labs for WSQ Application Integration with Docker and Kubernetes
+# Application Integration with Docker and Kubernetes
 
-Hands-on Docker and Kubernetes labs for the [WSQ Application Integration with Docker and Kubernetes](https://www.tertiarycourses.com.sg/wsq-application-integration-docker-kubernetes.html) course by Tertiary Infotech Academy Pte. Ltd.
+Hands-on labs and courseware for the WSQ course **Application Integration with Docker and
+Kubernetes** by [Tertiary Infotech Academy Pte. Ltd.](https://www.tertiarycourses.com.sg/)
 
-**Course Code:** TGS-2021010366 | **Skills Framework:** Applications Integration (ICT-DIT-3003-1.1) under ICT Skills Framework
+**Course Code:** TGS-2021010366 · **Duration:** 2 days (9:00 AM – 6:00 PM, 8 training hours/day)
 
-## Docker Labs
+Throughout the course you build and deploy one realistic application — **TaskBoard**, a Flask
+task-tracker backed by Redis and PostgreSQL — taking it from a single container, to a
+multi-service Docker Compose stack, to a scalable Kubernetes deployment. The shared app lives
+in [`labs/app/`](labs/app/).
 
-| Lab | Topic | Description |
-|-----|-------|-------------|
-| lab1 | First Container | Run an interactive Ubuntu container |
-| lab2 | Nginx | Run Nginx and write /etc/hosts to a file |
-| lab3 | Python Container | Build and run a simple Python print app |
-| lab3-2 | Tetris Game | Run a static web app (Tetris) with Nginx |
-| lab4 | Flask App | Build a Flask web app with Docker |
-| lab5 | Volumes | Persist data with named volumes and bind mounts |
-| lab5-2 | Dockerfile Volumes | VOLUME instruction in Dockerfile |
-| lab6 | Networks | Container networking and DNS |
-| lab7 | Port Mapping | Host vs container ports |
-| lab8 | Environment Variables | ENV in Dockerfile and runtime overrides |
-| lab9 | Docker Hub | Push the Tetris game to Docker Hub |
-| lab9-2 | Docker Hub | Push and pull images |
-| lab10 | Docker Compose | Single service with Compose |
-| lab11 | Multi-Service Compose | Flask + Redis with Compose |
-| lab12 | Full-Stack Compose | Web + PostgreSQL + Redis with healthchecks |
+## Topics covered
 
-## Kubernetes Labs
+**Day 1 — Docker:** fundamentals & commands · Dockerfile & image build · CMD vs ENTRYPOINT ·
+storage (volumes & bind mounts) · networking · configuration · Docker Hub · Docker Compose.
 
-| Lab | Topic | Description |
-|-----|-------|-------------|
-| lab13 | Pods | Create, inspect, and delete Pods (imperative and declarative) |
-| lab14 | Namespaces | Create and manage namespaces |
-| lab15 | Deployments | Replicas, scaling, and self-healing |
-| lab16 | Rollouts & Rollbacks | Rolling updates and version rollback |
-| lab17 | Services | ClusterIP, NodePort, and exposing Pods |
-| lab18 | Volumes | emptyDir, Persistent Volumes, and PVCs |
-| lab19 | Jobs & CronJobs | One-time and scheduled tasks |
+**Day 2 — Kubernetes:** Pods · Namespaces · Deployments · rolling updates & rollbacks ·
+Services · storage (PV/PVC) · Jobs & CronJobs.
 
-## Tests
+## Day 1 — Docker labs
 
-| Test | Description |
-|------|-------------|
-| test1 | Practical test covering Docker labs 1–9 (Dockerfile, build, run, push) |
-| test2 | Practical test covering Docker labs 10–12 (WordPress with Docker Compose) |
-| test3 | Practical test on Kubernetes core concepts (Pods, namespaces) |
-| test4 | Practical test on Kubernetes volumes and services |
+| Lab | Topic | What you build |
+|-----|-------|----------------|
+| [01](labs/lab01-docker-commands/) | Docker commands | Run & manage an nginx web server (run/ps/logs/exec/stop/rm) |
+| [02](labs/lab02-images-and-inspect/) | Docker commands | Pull images, `docker cp` a served file, inspect a container |
+| [03](labs/lab03-build-image/) | Docker build / Dockerfile | Build the TaskBoard Flask image |
+| [04](labs/lab04-dockerfile-best-practices/) | Dockerfile best practices | `.dockerignore` + cache-friendly layer ordering |
+| [05](labs/lab05-cmd-entrypoint/) | CMD vs ENTRYPOINT | Package `taskboard-cli` (fixed ENTRYPOINT, overridable CMD) |
+| [06](labs/lab06-volumes/) | Storage | Persist TaskBoard data with a named volume + bind mount |
+| [07](labs/lab07-networking/) | Networking | TaskBoard ↔ Redis by DNS on a custom bridge network |
+| [08](labs/lab08-env-vars/) | Environment variables | Configure TaskBoard via ENV / `-e` / `--env-file` |
+| [09](labs/lab09-docker-hub/) | Docker Hub | Tag, push and pull the TaskBoard image |
+| [10](labs/lab10-compose-single/) | Docker Compose | TaskBoard as a single Compose service |
+| [11](labs/lab11-compose-redis/) | Docker Compose | TaskBoard + Redis (visit counter) |
+| [12](labs/lab12-compose-fullstack/) | Docker Compose | TaskBoard + PostgreSQL + Redis with healthchecks |
 
-## Getting Started
+## Day 2 — Kubernetes labs
+
+| Lab | Topic | What you build |
+|-----|-------|----------------|
+| [13](labs/lab13-pods/) | Pods | Create/inspect Pods imperatively & declaratively |
+| [14](labs/lab14-namespaces/) | Namespaces | Isolate a `dev` environment |
+| [15](labs/lab15-deployments/) | Deployments | Scale and self-heal a Deployment |
+| [16](labs/lab16-rollouts/) | Rolling updates & rollbacks | Zero-downtime update, then roll back |
+| [17](labs/lab17-services/) | Services | ClusterIP (internal) + NodePort (external) |
+| [18](labs/lab18-storage/) | Storage | emptyDir + PersistentVolume / PVC |
+| [19](labs/lab19-jobs-cronjobs/) | Jobs & CronJobs | Batch Job + scheduled CronJob |
+
+Each lab folder has a step-by-step `lab.md` plus its working files. Every lab also runs in the
+browser on **KillerCoda** (link at the top of each `lab.md`). Practical assessments are in
+[`labs/assessments/`](labs/assessments/).
+
+## Courseware
+
+The [`courseware/`](courseware/) folder holds the generated deliverables — all kept 100% in
+sync from one source:
+
+- **Slides** — `Application-Integration-with-Docker-and-Kubernetes.pptx` / `.pdf`
+- **Lesson Plan** — `LP-Application-Integration-with-Docker-and-Kubernetes.docx` / `.pdf`
+- **Learner Guide** — `LG-Application-Integration-with-Docker-and-Kubernetes.docx` / `.pdf`
+  (and the Markdown mirror [`LG-Application-Integration-with-Docker-and-Kubernetes.md`](LG-Application-Integration-with-Docker-and-Kubernetes.md))
+
+The slides, labs, Lesson Plan and Learner Guide are all generated from a single canonical
+content module so they never drift apart. The build pipeline is the **`courseware-build`**
+skill ([.claude/skills/courseware-build/](.claude/skills/courseware-build/)) — edit
+`labs_data.py` and re-run the generators to update everything.
+
+## Getting started
 
 ```bash
-# Start with Docker lab1
-cd docker/lab1
-# Follow the instructions in lab.md
+# Start with Docker lab 1
+cd labs/lab01-docker-commands
+# follow the steps in lab.md — or open the KillerCoda link in your browser
 ```
-
-Each lab folder contains a `lab.md` with step-by-step commands to follow.
 
 ## Prerequisites
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/) (for Kubernetes labs)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Docker Engine + Compose)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) and a local cluster (minikube / kind) for Day 2 — or just use KillerCoda
+- A free [Docker Hub](https://hub.docker.com/) account (Lab 9)

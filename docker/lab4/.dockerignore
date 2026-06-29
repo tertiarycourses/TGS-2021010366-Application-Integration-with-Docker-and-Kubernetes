@@ -1,6 +1,0 @@
-Dockerfile
-.dockerignore
-docker-compose.yml
-lab.md
-*.txt
-!requirements.txt
