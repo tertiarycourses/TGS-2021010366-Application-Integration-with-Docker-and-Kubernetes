@@ -1,0 +1,14 @@
+# Retired / oversized files
+WSQ - Dr. Alfred Ang  - Application Integration with Docker and Kubernetes - v20.pptx
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Build artifacts (regenerated)
+Docker_Kubernetes_v*.pptx
+
+# OS
+.DS_Store
+Thumbs.db
