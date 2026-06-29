@@ -1,4 +1,4 @@
-# 🐳☸️ Application Integration with Docker and Kubernetes — Step‑by‑Step Learner Guide
+# Application Integration with Docker and Kubernetes — Learner Guide
 
 **Course Code:** TGS-2021010366
 
@@ -8,135 +8,107 @@
 
 ---
 
-This guide takes you from zero to running **multi‑container applications** with Docker and orchestrating them with Kubernetes. It mirrors the flow of the slides and is organised into **four Activities** — one per course topic — each broken into bite‑sized, hands‑on **sub‑activities** (the labs).
+This 2-day course takes you from zero to running **multi-container applications** with Docker and orchestrating them with Kubernetes. The labs are hands-on throughout — every concept is immediately applied in a KillerCoda browser sandbox so there is nothing to install.
 
-The progression is deliberate:
+**Day 1 — Docker** builds up five skills in sequence: running containers, persisting data, networking, configuration, and multi-service orchestration with Compose.
 
-1. **Activity 1 — Docker Fundamentals:** run, build, network, and ship single containers.
-2. **Activity 2 — Docker Compose:** wire several containers into one application.
-3. **Activity 3 — Kubernetes Fundamentals:** schedule and scale workloads as Pods and Deployments.
-4. **Activity 4 — Advanced Kubernetes:** expose, persist, and run scheduled workloads.
+**Day 2 — Kubernetes** moves from single-host Docker to a cluster: Pods, Namespaces, Deployments, rolling updates, Services, persistent volumes, and scheduled Jobs.
 
-Every sub‑activity follows the same shape — **Goal → Visual → Steps → Test it → Key concepts** — so you can pick up any lab and follow it without jumping around. Finish the activities in order; each one builds on the last.
-
-> 💡 **Emoji legend (used throughout for quick scanning):**
+> 💡 **Emoji legend:**
 > 🐳 Docker · ☸️ Kubernetes · 📦 Image/Container · 🧩 Compose · 🗄️ Volume/Storage · 🌐 Network/Service · ⚙️ Config/Env · 🚀 Deployment · ⏰ Job/CronJob · ✅ Test/Verify · ⚠️ Warning
+
+---
+
+## Course Map
+
+| Day | Scenario | Labs | Topics |
+|---|---|---|---|
+| **Day 1** | 1 — Docker Fundamentals | 1–4 | Run containers, build images, Flask app |
+| **Day 1** | 2 — Docker Storage | 5a–5b | Named volumes, bind mounts |
+| **Day 1** | 3 — Docker Networking | 6–7 | Custom networks, port mapping |
+| **Day 1** | 4 — Docker Config | 8 | Environment variables |
+| **Day 1** | 5 — Docker Compose | 10–12 | Compose, multi-service, full-stack |
+| **Day 2** | 1 — Pods & Namespaces | 13–14 | Pods, Namespaces |
+| **Day 2** | 2 — Deployments | 15 | Deployments, scaling, self-healing |
+| **Day 2** | 3 — Rolling Updates | 16 | Rolling updates, rollbacks |
+| **Day 2** | 4 — Services | 17 | ClusterIP, NodePort |
+| **Day 2** | 5 — Storage & Jobs | 18–19 | PV/PVC, Jobs, CronJobs |
+
+> **Lab 9 — Push to Docker Hub** is covered as a reference topic (theory slide). No KillerCoda activity is required.
 
 ---
 
 ## Table of Contents
 
-- [0. Before You Start — Setup & Prerequisites](#before-you-start)
-  - [0.1 Accounts & tools you need](#tools)
-  - [0.2 Install Docker Desktop](#install-docker)
-  - [0.3 Enable Kubernetes (kubectl)](#install-k8s)
-  - [0.4 Download the lab files](#download-labs)
-  - [0.5 Concept primer — VM vs Container, Image vs Container](#primer)
-- [Activity 1 — Docker Fundamentals](#activity-1)
-  - [1a — Run Your First Container (Lab 1)](#activity-1a)
-  - [1b — Run Nginx & Copy a File Out (Lab 2)](#activity-1b)
-  - [1c — Build a Python Image with a Dockerfile (Lab 3)](#activity-1c)
-  - [1d — Run a Tetris Game (static web app) (Lab 3‑2)](#activity-1d)
-  - [1e — Build & Run a Flask App; Inspect Containers (Lab 4)](#activity-1e)
-  - [1f — Persist Data with Volumes & Bind Mounts (Lab 5)](#activity-1f)
-  - [1g — Declare a VOLUME in the Dockerfile (Lab 5‑2)](#activity-1g)
-  - [1h — Connect Containers with Networks (Lab 6)](#activity-1h)
-  - [1i — Publish Ports with Port Mapping (Lab 7)](#activity-1i)
-  - [1j — Configure with Environment Variables (Lab 8)](#activity-1j)
-  - [1k — Push the Tetris Image to Docker Hub (Lab 9)](#activity-1k)
-  - [1l — Push the Flask Image to Docker Hub (Lab 9‑2)](#activity-1l)
-- [Activity 2 — Docker Compose](#activity-2)
-  - [2a — Single Service with Compose (Lab 10)](#activity-2a)
-  - [2b — Two Services: Flask + Redis (Lab 11)](#activity-2b)
-  - [2c — Full Stack: Web + PostgreSQL + Redis (Lab 12)](#activity-2c)
-- [Activity 3 — Kubernetes Fundamentals](#activity-3)
-  - [3a — Create & Inspect Pods (Lab 13)](#activity-3a)
-  - [3b — Isolate Resources with Namespaces (Lab 14)](#activity-3b)
-  - [3c — Scale & Self‑Heal with Deployments (Lab 15)](#activity-3c)
-- [Activity 4 — Advanced Kubernetes](#activity-4)
-  - [4a — Rollouts & Rollbacks (Lab 16)](#activity-4a)
-  - [4b — Expose Pods with Services (Lab 17)](#activity-4b)
-  - [4c — Volumes, PV & PVC (Lab 18)](#activity-4c)
-  - [4d — Jobs & CronJobs (Lab 19)](#activity-4d)
+- [Before You Start — Setup & Prerequisites](#before-you-start)
+- [**Day 1 — Docker**](#day-1)
+  - [Scenario 1 — Docker Fundamentals](#scenario-1)
+    - [Lab 1 — Run Your First Container](#lab-1)
+    - [Lab 2 — Run Nginx & Copy a File Out](#lab-2)
+    - [Lab 3 — Build a Python Image with a Dockerfile](#lab-3)
+    - [Lab 4 — Build & Run a Flask App; Inspect Containers](#lab-4)
+  - [Scenario 2 — Docker Storage](#scenario-2)
+    - [Lab 5a — Persist Data with Named Volumes](#lab-5a)
+    - [Lab 5b — Live-share with Bind Mounts](#lab-5b)
+  - [Scenario 3 — Docker Networking](#scenario-3)
+    - [Lab 6 — Connect Containers with Custom Networks](#lab-6)
+    - [Lab 7 — Publish Ports with Port Mapping](#lab-7)
+  - [Scenario 4 — Docker Config](#scenario-4)
+    - [Lab 8 — Configure with Environment Variables](#lab-8)
+  - [Reference — Push to Docker Hub (Lab 9)](#lab-9-ref)
+  - [Scenario 5 — Docker Compose](#scenario-5)
+    - [Lab 10 — Single Service with Compose](#lab-10)
+    - [Lab 11 — Two Services: Flask + Redis](#lab-11)
+    - [Lab 12 — Full Stack: Web + PostgreSQL + Redis](#lab-12)
+- [**Day 2 — Kubernetes**](#day-2)
+  - [Scenario 1 — Pods & Namespaces](#k8s-scenario-1)
+    - [Lab 13 — Create & Inspect Pods](#lab-13)
+    - [Lab 14 — Isolate Resources with Namespaces](#lab-14)
+  - [Scenario 2 — Deployments](#k8s-scenario-2)
+    - [Lab 15 — Scale & Self-Heal with Deployments](#lab-15)
+  - [Scenario 3 — Rolling Updates](#k8s-scenario-3)
+    - [Lab 16 — Rollouts & Rollbacks](#lab-16)
+  - [Scenario 4 — Services](#k8s-scenario-4)
+    - [Lab 17 — Expose Pods with Services](#lab-17)
+  - [Scenario 5 — Storage & Jobs](#k8s-scenario-5)
+    - [Lab 18 — Volumes, PV & PVC](#lab-18)
+    - [Lab 19 — Jobs & CronJobs](#lab-19)
 - [Final Assessment — Practical Tests](#assessment)
-  - [Test 1 — Docker Fundamentals](#test-1)
-  - [Test 2 — Docker Compose](#test-2)
-  - [Test 3 — Kubernetes Core Concepts](#test-3)
-  - [Test 4 — Volumes & Services](#test-4)
-- [Troubleshooting Cheat‑Sheet](#troubleshooting)
+- [Troubleshooting Cheat-Sheet](#troubleshooting)
 - [Glossary](#glossary)
 
 ---
 
 <a name="before-you-start"></a>
-## 0. Before You Start — Setup & Prerequisites
+## Before You Start — Setup & Prerequisites
 
-<a name="tools"></a>
-### 0.1 Accounts & tools you need
+### Accounts & tools you need
 
 | You need | Why | Where |
 |---|---|---|
-| **Docker Desktop** | Runs containers + includes Compose and a one‑click Kubernetes cluster | https://www.docker.com/products/docker-desktop/ |
-| **A terminal** | Run `docker` / `kubectl` commands | zsh/bash on macOS or Linux, PowerShell on Windows |
-| **Docker Hub account** (free) | Push/pull images (Labs 9, 9‑2; Test 1) | https://hub.docker.com/ |
-| **A web browser** | Open the apps you run (`http://localhost:…`) | any modern browser |
+| **KillerCoda account** (free) | Browser-based lab sandbox — Docker and `kubectl` pre-installed | https://killercoda.com |
+| **A web browser** | Run labs and open apps (`http://localhost:…`) | any modern browser |
+| **Docker Hub account** (free) | Push/pull images (Lab 9 reference topic) | https://hub.docker.com/ |
 | **The lab files** | Dockerfiles, YAML, sample apps | [GitHub repo](https://github.com/tertiarycourses/TGS-2021010366-Application-Integration-with-Docker-and-Kubernetes) |
 
-> ⚠️ **No local install?** You can run all the **Kubernetes** labs in a free browser sandbox: **[killercoda.com/playgrounds/scenario/kubernetes](https://killercoda.com/playgrounds/scenario/kubernetes)**. `kubectl` is pre‑installed there.
+> ✅ **All Day 1 Docker labs and Day 2 Kubernetes labs run in the KillerCoda browser sandbox.** Nothing needs to be installed on your local machine.
 
-<a name="install-docker"></a>
-### 0.2 Install Docker Desktop
+**KillerCoda lab scenarios for this course:**
 
-**macOS (Homebrew — recommended):**
+| Day | Scenario folder | URL |
+|---|---|---|
+| Day 1 | day1-01-docker-fundamentals | https://killercoda.com/tertiarycourses/scenario/day1-01-docker-fundamentals |
+| Day 1 | day1-02-docker-storage | https://killercoda.com/tertiarycourses/scenario/day1-02-docker-storage |
+| Day 1 | day1-03-docker-networking | https://killercoda.com/tertiarycourses/scenario/day1-03-docker-networking |
+| Day 1 | day1-04-docker-config | https://killercoda.com/tertiarycourses/scenario/day1-04-docker-config |
+| Day 1 | day1-05-docker-compose | https://killercoda.com/tertiarycourses/scenario/day1-05-docker-compose |
+| Day 2 | day2-01-k8s-pods-namespaces | https://killercoda.com/tertiarycourses/scenario/day2-01-k8s-pods-namespaces |
+| Day 2 | day2-02-k8s-deployments | https://killercoda.com/tertiarycourses/scenario/day2-02-k8s-deployments |
+| Day 2 | day2-03-k8s-rollouts | https://killercoda.com/tertiarycourses/scenario/day2-03-k8s-rollouts |
+| Day 2 | day2-04-k8s-services | https://killercoda.com/tertiarycourses/scenario/day2-04-k8s-services |
+| Day 2 | day2-05-k8s-storage-jobs | https://killercoda.com/tertiarycourses/scenario/day2-05-k8s-storage-jobs |
 
-```bash
-brew install --cask docker
-```
-
-Then launch **Docker Desktop** from Applications and wait for the 🐳 whale icon in the menu bar to stop animating (engine running).
-
-**Any OS:** download the installer from https://www.docker.com/products/docker-desktop/ and follow the prompts.
-
-✅ **Verify the install:**
-
-```bash
-docker --version          # e.g. Docker version 27.x
-docker compose version    # e.g. Docker Compose version v2.x
-docker run --rm hello-world
-docker ps -a
-```
-
-If `hello-world` prints a success message, 🐳 Docker is ready.
-
-<a name="install-k8s"></a>
-### 0.3 Enable Kubernetes (kubectl)
-
-You only need this from **Activity 3** onward.
-
-**Option A — Docker Desktop's built‑in Kubernetes (easiest):**
-
-1. Open **Docker Desktop → Settings → Kubernetes**.
-2. Tick **Enable Kubernetes** → **Apply & Restart**.
-3. Wait for the Kubernetes indicator to turn green.
-
-**Option B — Install `kubectl` on its own (macOS):**
-
-```bash
-brew install kubectl
-kubectl version --client
-```
-
-**Option C — Browser sandbox:** open **[killercoda Kubernetes playground](https://killercoda.com/playgrounds/scenario/kubernetes)** — nothing to install.
-
-✅ **Verify the cluster is reachable:**
-
-```bash
-kubectl get nodes          # should list at least one Ready node
-kubectl get namespaces
-```
-
-<a name="download-labs"></a>
-### 0.4 Download the lab files
+### Download the lab files (optional — for local reference)
 
 ```bash
 git clone https://github.com/tertiarycourses/TGS-2021010366-Application-Integration-with-Docker-and-Kubernetes.git
@@ -146,15 +118,12 @@ cd TGS-2021010366-docker-kubernetes
 The repo is laid out as:
 
 ```
-docker/        ← Activity 1 & 2 labs (lab1 … lab12)
-kubernetes/    ← Activity 3 & 4 labs (lab13 … lab19)
+docker/        ← Day 1 labs (lab1 … lab12)
+kubernetes/    ← Day 2 labs (lab13 … lab19)
 tests/         ← Final assessment (test1 … test4)
 ```
 
-Each lab folder contains a `lab.md` plus any `Dockerfile`, app code, or `*.yaml` it needs.
-
-<a name="primer"></a>
-### 0.5 Concept primer — VM vs Container, Image vs Container
+### Concept primer — VM vs Container, Image vs Container
 
 A **Virtual Machine** ships a whole guest OS on top of a hypervisor — heavy. A **container** shares the host kernel and ships only your app + its libraries — light, fast to start, and dense.
 
@@ -180,7 +149,7 @@ flowchart TB
   end
 ```
 
-An **image** is the read‑only blueprint (built from a Dockerfile). A **container** is a running instance of an image. `docker run` turns one into the other:
+An **image** is the read-only blueprint (built from a Dockerfile). A **container** is a running instance of an image. `docker run` turns one into the other:
 
 ```mermaid
 flowchart LR
@@ -200,14 +169,12 @@ flowchart LR
 
 ---
 
-<a name="activity-1"></a>
-## Activity 1 — Docker Fundamentals
+<a name="day-1"></a>
+# Day 1 — Docker 🐳
 
-**Goal:** become fluent with the container lifecycle — run, build, inspect, persist, network, configure, and ship images.
+**Goal:** become fluent with the Docker container lifecycle — run, build, persist, network, configure, and orchestrate.
 
-Folder: [`docker/`](docker/)
-
-The container lifecycle you'll practise throughout this activity:
+The container lifecycle you will practise throughout Day 1:
 
 ```mermaid
 stateDiagram-v2
@@ -222,8 +189,17 @@ stateDiagram-v2
 
 ---
 
-<a name="activity-1a"></a>
-### 1a — Run Your First Container (Lab 1)
+<a name="scenario-1"></a>
+## Scenario 1 — Docker Fundamentals
+
+**Labs 1–4 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day1-01-docker-fundamentals
+
+**Goal:** master the container lifecycle — run, build, inspect, and manage images and containers.
+
+---
+
+<a name="lab-1"></a>
+### Lab 1 — Run Your First Container
 
 **Goal:** start an interactive Ubuntu container, look inside it, and list containers.
 
@@ -272,8 +248,8 @@ flowchart LR
 
 ---
 
-<a name="activity-1b"></a>
-### 1b — Run Nginx & Copy a File Out (Lab 2)
+<a name="lab-2"></a>
+### Lab 2 — Run Nginx & Copy a File Out
 
 **Goal:** run a container in the background, run commands inside it, and copy files between container and host.
 
@@ -324,8 +300,8 @@ flowchart LR
 
 ---
 
-<a name="activity-1c"></a>
-### 1c — Build a Python Image with a Dockerfile (Lab 3)
+<a name="lab-3"></a>
+### Lab 3 — Build a Python Image with a Dockerfile
 
 **Goal:** turn your own code into an image with a Dockerfile, then run it.
 
@@ -381,7 +357,7 @@ CMD ["python", "main.py"] # default command when the container starts
    docker ps -a
    ```
 
-5. **Remove the stopped container** (replace with the ID from step 4):
+5. **Remove the stopped container:**
 
    ```bash
    docker rm <container_id>
@@ -393,62 +369,10 @@ CMD ["python", "main.py"] # default command when the container starts
 
 ---
 
-<a name="activity-1d"></a>
-### 1d — Run a Tetris Game (static web app) (Lab 3‑2)
+<a name="lab-4"></a>
+### Lab 4 — Build & Run a Flask App; Inspect Containers
 
-**Goal:** package a static website with Nginx and publish a port so you can open it in a browser.
-
-Folder: [`docker/lab3-2/tetris-game/`](docker/lab3-2/) — contains `index.html`, `script.js`, `style.css`, and a Dockerfile.
-
-```mermaid
-flowchart LR
-  U["🧑 Browser"] -->|localhost:8080| HP["Host port 8080"]
-  HP --> CP["Container port 80"]
-  CP --> NG["🟢 nginx serving Tetris"]
-```
-
-The Dockerfile copies the web files into Nginx's web root:
-
-```dockerfile
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-COPY index.html script.js style.css ./
-EXPOSE 80
-```
-
-#### Steps
-
-1. **Build the image** from the game folder:
-
-   ```bash
-   cd docker/lab3-2/tetris-game
-   docker build -t tetris .
-   ```
-
-2. **Run it detached, mapping host port 8080 → container port 80** (`-p host:container`):
-
-   ```bash
-   docker run -d -p 8080:80 --name tetris tetris
-   ```
-
-3. **Play it:** open **http://localhost:8080** in your browser. 🎮
-
-4. **Stop and remove:**
-
-   ```bash
-   docker stop tetris && docker rm tetris
-   ```
-
-✅ **Test it:** the Tetris game loads at `localhost:8080`.
-
-**Key concepts:** `nginx:alpine`, `EXPOSE`, port mapping `-p 8080:80`, serving static content.
-
----
-
-<a name="activity-1e"></a>
-### 1e — Build & Run a Flask App; Inspect Containers (Lab 4)
-
-**Goal:** build a multi‑layer Python web image, run it several ways, and inspect a running container.
+**Goal:** build a multi-layer Python web image, run it several ways, and inspect a running container.
 
 Folder: [`docker/lab4/`](docker/lab4/) — contains `Dockerfile`, `app.py`, `requirements.txt`.
 
@@ -549,18 +473,18 @@ CMD ["python", "app.py"]
 
 ✅ **Test it:** `localhost:5001` returns *"Hello World from Docker!"*; `docker logs my-app` shows your requests.
 
-> 💡 **Layer caching:** copying `requirements.txt` and installing **before** `COPY . .` means changing `app.py` only rebuilds the small app layer — not the slow dependency layer. **Layer‑creating instructions:** `FROM`, `RUN`, `COPY`, `ADD`. **Metadata‑only:** `CMD`, `EXPOSE`, `ENV`, `WORKDIR`, `ENTRYPOINT`, `LABEL`.
+> 💡 **Layer caching:** copying `requirements.txt` and installing **before** `COPY . .` means changing `app.py` only rebuilds the small app layer — not the slow dependency layer. **Layer-creating instructions:** `FROM`, `RUN`, `COPY`, `ADD`. **Metadata-only:** `CMD`, `EXPOSE`, `ENV`, `WORKDIR`, `ENTRYPOINT`, `LABEL`.
 
-**Key concepts:** image layers, `docker history`, foreground vs detached, lifecycle commands, `docker logs` / `exec` / `inspect` / `stats`.
+**Key concepts:** image layers, `docker history`, foreground vs detached, lifecycle commands, `docker logs`/`exec`/`inspect`/`stats`.
 
 ---
 
-<a name="activity-1f"></a>
-### 1f — Persist Data with Volumes & Bind Mounts (Lab 5)
+<a name="scenario-2"></a>
+## Scenario 2 — Docker Storage
 
-**Goal:** keep data alive after a container is removed using a **named volume**, and live‑share host files using a **bind mount**.
+**Labs 5a–5b · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day1-02-docker-storage
 
-Folder: [`docker/lab5/`](docker/lab5/)
+**Goal:** keep data alive after a container is removed using a **named volume**, and live-share host files using a **bind mount**.
 
 ```mermaid
 flowchart TB
@@ -573,7 +497,23 @@ flowchart TB
   C3["🟢 alpine"] -->|-v ./myfiles:/data| B
 ```
 
-#### Steps — Part A: Named volumes (data survives container deletion)
+| | 🗄️ Named Volume | 📁 Bind Mount |
+|---|---|---|
+| Syntax | `-v my-data:/app/data` | `-v $(pwd)/folder:/app/data` |
+| Managed by | Docker | You (host filesystem) |
+| Best for | Databases, logs (persistence) | Live code editing (development) |
+| Portability | Any machine | Tied to a host path |
+
+---
+
+<a name="lab-5a"></a>
+### Lab 5a — Persist Data with Named Volumes
+
+**Goal:** prove that data survives a container being deleted when stored in a named volume.
+
+Folder: [`docker/lab5/`](docker/lab5/)
+
+#### Steps
 
 1. **Create and inspect a named volume:**
 
@@ -583,7 +523,7 @@ flowchart TB
    docker volume inspect my-data
    ```
 
-2. **Run the Lab 4 app with the volume mounted** at `/app/data`:
+2. **Run the Lab 4 Flask app with the volume mounted** at `/app/data`:
 
    ```bash
    docker run -d -p 5001:5000 --name my-app -v my-data:/app/data lab4
@@ -596,18 +536,32 @@ flowchart TB
    docker exec my-app cat /app/data/test.txt
    ```
 
-4. **Destroy the container, then start a brand‑new one with the same volume** — the data is still there:
+4. **Destroy the container, then start a brand-new one with the same volume** — the data is still there:
 
    ```bash
    docker stop my-app && docker rm my-app
    docker run -d -p 5001:5000 --name my-app2 -v my-data:/app/data lab4
    docker exec my-app2 cat /app/data/test.txt     # → hello volumes
    docker stop my-app2 && docker rm my-app2
+   docker volume rm my-data
    ```
 
-#### Steps — Part B: Bind mounts (live host ↔ container sharing)
+✅ **Test it:** the file written by `my-app` is readable by `my-app2`.
 
-5. **Create a host folder with a file, then mount it into a container:**
+**Key concepts:** named volumes, `docker volume create/ls/inspect/rm`, data persistence beyond container life.
+
+---
+
+<a name="lab-5b"></a>
+### Lab 5b — Live-share with Bind Mounts
+
+**Goal:** share a host folder directly into a container so changes appear instantly on both sides.
+
+Folder: [`docker/lab5/`](docker/lab5/)
+
+#### Steps
+
+1. **Create a host folder with a file, then mount it into a container:**
 
    ```bash
    mkdir -p myfiles
@@ -615,7 +569,7 @@ flowchart TB
    docker run --rm -v $(pwd)/myfiles:/data alpine cat /data/note.txt
    ```
 
-6. **Write from the container back to the host** — the file appears on your machine:
+2. **Write from the container back to the host** — the file appears on your machine:
 
    ```bash
    docker run --rm -v $(pwd)/myfiles:/data alpine sh -c "echo 'hello from container' > /data/reply.txt"
@@ -623,82 +577,23 @@ flowchart TB
    rm -rf myfiles
    ```
 
-7. **Remove the volume when done:**
+✅ **Test it:** `reply.txt` created inside the container appears on your host.
 
-   ```bash
-   docker volume rm my-data
-   ```
-
-✅ **Test it:** the file written by `my-app` is readable by `my-app2`; `reply.txt` created in the container appears on your host.
-
-| | 🗄️ Named Volume | 📁 Bind Mount |
-|---|---|---|
-| Syntax | `-v my-data:/app/data` | `-v $(pwd)/folder:/app/data` |
-| Managed by | Docker | You (host filesystem) |
-| Best for | Databases, logs (persistence) | Live code editing (development) |
-| Portability | Any machine | Tied to a host path |
-
-**Key concepts:** named volumes, `docker volume create/ls/inspect/rm`, bind mounts, data persistence beyond container life.
+**Key concepts:** bind mounts, `-v $(pwd)/folder:/path`, host ↔ container bidirectional sharing.
 
 ---
 
-<a name="activity-1g"></a>
-### 1g — Declare a VOLUME in the Dockerfile (Lab 5‑2)
+<a name="scenario-3"></a>
+## Scenario 3 — Docker Networking
 
-**Goal:** see how the `VOLUME` instruction auto‑creates an **anonymous** volume, and why you still need a **named** volume to persist across runs.
+**Labs 6–7 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day1-03-docker-networking
 
-Folder: [`docker/lab5-2/`](docker/lab5-2/) — a counter app that reads/writes `/app/data/counter.txt`.
-
-```dockerfile
-FROM python:3.12-slim
-WORKDIR /app
-VOLUME /app/data       # Docker auto-creates an anonymous volume here
-COPY app.py .
-CMD ["python", "app.py"]
-```
-
-#### Steps
-
-1. **Build the image:**
-
-   ```bash
-   cd docker/lab5-2
-   docker build -t lab5-2 .
-   ```
-
-2. **Run twice with no `-v`** — each run gets a *new* anonymous volume, so the count resets to 1:
-
-   ```bash
-   docker run --name my-app lab5-2     # Run count: 1
-   docker run --rm lab5-2              # Run count: 1  (different anonymous volume)
-   ```
-
-3. **Run repeatedly with a named volume** — now the count increments because all runs share the same storage:
-
-   ```bash
-   docker volume create my-data
-   docker run --rm -v my-data:/app/data lab5-2     # Run count: 1
-   docker run --rm -v my-data:/app/data lab5-2     # Run count: 2
-   docker run --rm -v my-data:/app/data lab5-2     # Run count: 3
-   ```
-
-4. **Inspect the anonymous volume** created by the first container, then clean up:
-
-   ```bash
-   docker inspect my-app --format '{{json .Mounts}}'
-   docker rm my-app
-   docker volume rm my-data
-   docker volume prune -f      # remove dangling anonymous volumes
-   ```
-
-✅ **Test it:** count stays at `1` without `-v`; count climbs `1 → 2 → 3` with the named volume.
-
-**Key concepts:** `VOLUME` instruction, anonymous vs named volumes, `docker volume prune`.
+**Goal:** put containers on a custom network so they can talk by name, and control how ports are exposed to the host.
 
 ---
 
-<a name="activity-1h"></a>
-### 1h — Connect Containers with Networks (Lab 6)
+<a name="lab-6"></a>
+### Lab 6 — Connect Containers with Custom Networks
 
 **Goal:** put two containers on a custom network so they can reach each other **by name**, then disconnect/reconnect.
 
@@ -729,7 +624,7 @@ flowchart LR
    docker run -d --name app2 --network my-net busybox sleep 3600
    ```
 
-3. **Reach app2 from app1 by name** — Docker's built‑in DNS resolves container names:
+3. **Reach app2 from app1 by name** — Docker's built-in DNS resolves container names:
 
    ```bash
    docker exec app1 ping -c 2 app2
@@ -757,8 +652,8 @@ flowchart LR
 
 ---
 
-<a name="activity-1i"></a>
-### 1i — Publish Ports with Port Mapping (Lab 7)
+<a name="lab-7"></a>
+### Lab 7 — Publish Ports with Port Mapping
 
 **Goal:** understand how `-p host:container` exposes a container to your host — and what happens without it.
 
@@ -801,8 +696,7 @@ flowchart LR
 
    ```bash
    docker run -d --name web4 lab4
-   # curl http://localhost:5000   ← would fail: nothing published
-   docker exec web4 curl -s http://localhost:5000   # ✅ works from inside
+   docker exec web4 curl -s http://localhost:5000   # ✅ works from inside only
    ```
 
 5. **Clean up:**
@@ -817,8 +711,17 @@ flowchart LR
 
 ---
 
-<a name="activity-1j"></a>
-### 1j — Configure with Environment Variables (Lab 8)
+<a name="scenario-4"></a>
+## Scenario 4 — Docker Config
+
+**Lab 8 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day1-04-docker-config
+
+**Goal:** pass configuration into a container at runtime, overriding Dockerfile defaults — no image rebuild needed.
+
+---
+
+<a name="lab-8"></a>
+### Lab 8 — Configure with Environment Variables
 
 **Goal:** pass configuration into a container at runtime, overriding Dockerfile defaults.
 
@@ -870,122 +773,55 @@ CMD ["python", "app.py"]
 
 ---
 
-<a name="activity-1k"></a>
-### 1k — Push the Tetris Image to Docker Hub (Lab 9)
+<a name="lab-9-ref"></a>
+## Reference — Push to Docker Hub (Lab 9)
 
-**Goal:** publish an image so anyone in the world can `docker pull` and run it.
+> 📖 **Theory reference only — no KillerCoda activity.** This section covers the commands for pushing images to Docker Hub. You will practise these steps if time permits or as a self-study exercise.
 
-Folder: [`docker/lab9/`](docker/lab9/) — pushes the Tetris image from 1d.
+Publishing an image makes it available to anyone with a Docker Hub account:
 
 ```mermaid
 flowchart LR
-  B["📦 tetris (built locally)"] -->|docker tag| T["📦 USER/tetris:v1"]
+  B["📦 image (built locally)"] -->|docker tag| T["📦 USER/repo:v1"]
   T -->|docker push| HUB["☁️ Docker Hub"]
   HUB -->|docker pull| ANY["🌍 Anyone runs it"]
 ```
 
-#### Steps
+**Commands (replace `<your-username>` with your Docker Hub username):**
 
-1. **Log in to Docker Hub** (create a free account first at hub.docker.com):
+```bash
+# Log in
+docker login
 
-   ```bash
-   docker login
-   ```
+# Tag the image with your username
+docker tag lab4 <your-username>/lab4:v1
 
-2. **Build the Tetris image:**
+# Push it
+docker push <your-username>/lab4:v1
 
-   ```bash
-   cd docker/lab3-2/tetris-game
-   docker build -t tetris .
-   ```
+# Tag and push a 'latest' pointer
+docker tag lab4 <your-username>/lab4:latest
+docker push <your-username>/lab4:latest
 
-3. **Tag it with your Docker Hub username** (replace `<your-username>`):
+# Anyone can now pull and run it
+docker pull <your-username>/lab4:v1
+docker run -p 5001:5000 <your-username>/lab4:v1
 
-   ```bash
-   docker tag tetris <your-username>/tetris:v1
-   ```
-
-4. **Push it:**
-
-   ```bash
-   docker push <your-username>/tetris:v1
-   ```
-
-   Verify at `https://hub.docker.com/r/<your-username>/tetris`.
-
-5. **Anyone can now pull and run it:**
-
-   ```bash
-   docker pull <your-username>/tetris:v1
-   docker run -d -p 8080:80 <your-username>/tetris:v1
-   ```
-
-6. **Clean up and log out:**
-
-   ```bash
-   docker stop $(docker ps -q --filter ancestor=<your-username>/tetris:v1)
-   docker logout
-   ```
-
-✅ **Test it:** the image appears on your Docker Hub repos page and runs at `localhost:8080` after a fresh pull.
-
-**Key concepts:** `docker login`, image naming `username/repo:tag`, `docker push`/`pull`, public distribution.
-
----
-
-<a name="activity-1l"></a>
-### 1l — Push the Flask Image to Docker Hub (Lab 9‑2)
-
-**Goal:** repeat the push workflow with the Flask app and add a `latest` tag.
-
-Folder: [`docker/lab9-2/`](docker/lab9-2/) — pushes the `lab4` Flask image.
-
-#### Steps
-
-1. **Log in and build:**
-
-   ```bash
-   docker login
-   cd docker/lab4
-   docker build -t lab4 .
-   ```
-
-2. **Tag and push a versioned image:**
-
-   ```bash
-   docker tag lab4 <your-username>/lab4:v1
-   docker push <your-username>/lab4:v1
-   ```
-
-3. **Pull & run it from Hub:**
-
-   ```bash
-   docker pull <your-username>/lab4:v1
-   docker run -p 5001:5000 <your-username>/lab4:v1
-   ```
-
-4. **Also publish a `latest` tag** (a moving pointer to your newest build):
-
-   ```bash
-   docker tag lab4 <your-username>/lab4:latest
-   docker push <your-username>/lab4:latest
-   docker logout
-   ```
-
-✅ **Test it:** both `:v1` and `:latest` tags appear on Docker Hub and run with `docker run`.
+docker logout
+```
 
 > 💡 **Tags 101:** `:v1`, `:v2` pin specific versions; `:latest` is just a convention for "the newest" — it is **not** automatic, you must push it yourself.
 
-**Key concepts:** semantic tags vs `latest`, re‑tagging the same image, multiple tags per image.
+**Key concepts:** `docker login`, image naming `username/repo:tag`, `docker push`/`pull`, semantic tags vs `latest`.
 
 ---
 
-<a name="activity-2"></a>
-## Activity 2 — Docker Compose
+<a name="scenario-5"></a>
+## Scenario 5 — Docker Compose
 
-**Goal:** describe a whole multi‑container application in one `docker-compose.yml` and run it with a single command.
+**Labs 10–12 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day1-05-docker-compose
 
-Folder: [`docker/`](docker/) (labs 10–12)
+**Goal:** describe a whole multi-container application in one `docker-compose.yml` and run it with a single command.
 
 Compose reads a YAML file and builds/runs all your services, networks, and volumes together:
 
@@ -998,12 +834,12 @@ flowchart LR
   ENG --> VOL["🗄️ named volumes"]
 ```
 
-**The Compose workflow is three steps:** (1) write a `Dockerfile` for your app → (2) declare the services in `docker-compose.yml` → (3) run `docker compose up`.
+**The Compose workflow:** (1) write a `Dockerfile` for your app → (2) declare services in `docker-compose.yml` → (3) run `docker compose up`.
 
 ---
 
-<a name="activity-2a"></a>
-### 2a — Single Service with Compose (Lab 10)
+<a name="lab-10"></a>
+### Lab 10 — Single Service with Compose
 
 **Goal:** run one Flask service from a Compose file and use the core `compose` commands.
 
@@ -1063,8 +899,8 @@ services:
 
 ---
 
-<a name="activity-2b"></a>
-### 2b — Two Services: Flask + Redis (Lab 11)
+<a name="lab-11"></a>
+### Lab 11 — Two Services: Flask + Redis
 
 **Goal:** wire two services together — a web app that talks to a Redis cache by service name.
 
@@ -1124,14 +960,14 @@ services:
 
 > 💡 **Service discovery:** inside a Compose network, `web` reaches Redis at the hostname `redis` — the service name *is* the DNS name. That's why `REDIS_HOST=redis` works with no IP addresses.
 
-**Key concepts:** multi‑service Compose, `environment`, `depends_on`, service‑name DNS, stateful cache.
+**Key concepts:** multi-service Compose, `environment`, `depends_on`, service-name DNS, stateful cache.
 
 ---
 
-<a name="activity-2c"></a>
-### 2c — Full Stack: Web + PostgreSQL + Redis (Lab 12)
+<a name="lab-12"></a>
+### Lab 12 — Full Stack: Web + PostgreSQL + Redis
 
-**Goal:** run a production‑shaped stack — Node web server, PostgreSQL, and Redis — with health checks, named volumes, a custom network, and resource limits.
+**Goal:** run a production-shaped stack — Node web server, PostgreSQL, and Redis — with health checks, named volumes, a custom network, and resource limits.
 
 Folder: [`docker/lab12/`](docker/lab12/) — Node app under [`docker/lab12/app/`](docker/lab12/app/).
 
@@ -1147,17 +983,17 @@ flowchart TB
   RD --- RV["🗄️ redis-data volume"]
 ```
 
-This Compose file shows the advanced keys from the slides:
+This Compose file demonstrates advanced features:
 
 | Key | What it does |
 |---|---|
-| `build.args` | pass build‑time variables (e.g. `NODE_ENV`) |
+| `build.args` | pass build-time variables (e.g. `NODE_ENV`) |
 | `env_file` | load env vars from a `.env` file |
 | `depends_on: condition: service_healthy` | wait until `db` passes its health check |
 | `healthcheck` | how Docker decides a service is healthy |
-| `restart: unless-stopped` | auto‑restart on failure |
+| `restart: unless-stopped` | auto-restart on failure |
 | `deploy.resources.limits` | cap CPU and memory |
-| `networks` | custom bridge for service‑to‑service traffic |
+| `networks` | custom bridge for service-to-service traffic |
 | named `volumes` | persist database and cache data |
 
 #### Steps
@@ -1178,7 +1014,7 @@ This Compose file shows the advanced keys from the slides:
 3. **Visit the three endpoints:**
    - **http://localhost:3000** — visit count (from Redis)
    - **http://localhost:3000/db** — current database time (from PostgreSQL)
-   - **http://localhost:3000/health** — health‑check endpoint
+   - **http://localhost:3000/health** — health-check endpoint
 
 4. **View logs per service:**
 
@@ -1205,18 +1041,16 @@ This Compose file shows the advanced keys from the slides:
 
 ✅ **Test it:** all three endpoints respond; `/db` returns a timestamp; the visit count survives a `down`/`up` (but not `down -v`).
 
-**Key concepts:** multi‑service orchestration, `healthcheck` + `depends_on` ordering, named volumes for persistence, custom networks, `deploy.resources.limits`, `down` vs `down -v`.
+**Key concepts:** multi-service orchestration, `healthcheck` + `depends_on` ordering, named volumes for persistence, custom networks, `deploy.resources.limits`, `down` vs `down -v`.
 
 ---
 
-<a name="activity-3"></a>
-## Activity 3 — Kubernetes Fundamentals
+<a name="day-2"></a>
+# Day 2 — Kubernetes ☸️
 
-**Goal:** move from single‑host Docker to a cluster. Schedule workloads as **Pods**, organise them with **Namespaces**, and scale/self‑heal them with **Deployments**.
+**Goal:** move from single-host Docker to a cluster. Schedule and manage workloads across nodes with Kubernetes.
 
-Folder: [`kubernetes/`](kubernetes/) (labs 13–15)
-
-> ⚠️ **Before you start Activity 3:** make sure a cluster is running (Docker Desktop Kubernetes, or the [killercoda playground](https://killercoda.com/playgrounds/scenario/kubernetes)) and `kubectl get nodes` shows a `Ready` node.
+> ⚠️ **Before starting Day 2:** open the KillerCoda Kubernetes playground or ensure `kubectl get nodes` shows a `Ready` node. All Day 2 labs run in KillerCoda.
 
 A Kubernetes cluster = one **control plane** (API Server, Scheduler, Controller Manager, etcd) + one or more **worker nodes** that run your Pods:
 
@@ -1242,8 +1076,17 @@ flowchart LR
 
 ---
 
-<a name="activity-3a"></a>
-### 3a — Create & Inspect Pods (Lab 13)
+<a name="k8s-scenario-1"></a>
+## Scenario 1 — Pods & Namespaces
+
+**Labs 13–14 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day2-01-k8s-pods-namespaces
+
+**Goal:** schedule workloads as **Pods** — the smallest deployable unit — and organise them with **Namespaces**.
+
+---
+
+<a name="lab-13"></a>
+### Lab 13 — Create & Inspect Pods
 
 **Goal:** create the smallest deployable unit — a Pod — both imperatively (a command) and declaratively (YAML), and inspect it.
 
@@ -1317,14 +1160,14 @@ flowchart LR
 
 ✅ **Test it:** `kubectl get pods` shows the Pod as `Running`; `kubectl logs` returns Nginx output.
 
-> 💡 **Imperative vs declarative:** `kubectl run`/`create` is quick for experiments; YAML + `kubectl apply -f` is repeatable and version‑controllable — the production approach.
+> 💡 **Imperative vs declarative:** `kubectl run`/`create` is quick for experiments; YAML + `kubectl apply -f` is repeatable and version-controllable — the production approach.
 
 **Key concepts:** Pod = smallest unit, `kubectl run` vs `apply -f`, the 4 manifest keys, `get`/`describe`/`logs`/`exec`, labels.
 
 ---
 
-<a name="activity-3b"></a>
-### 3b — Isolate Resources with Namespaces (Lab 14)
+<a name="lab-14"></a>
+### Lab 14 — Isolate Resources with Namespaces
 
 **Goal:** use namespaces to keep resources from different teams/environments separate.
 
@@ -1399,8 +1242,17 @@ flowchart TB
 
 ---
 
-<a name="activity-3c"></a>
-### 3c — Scale & Self‑Heal with Deployments (Lab 15)
+<a name="k8s-scenario-2"></a>
+## Scenario 2 — Deployments
+
+**Lab 15 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day2-02-k8s-deployments
+
+**Goal:** manage many identical Pods with a Deployment — scale up/down and watch it recreate Pods automatically.
+
+---
+
+<a name="lab-15"></a>
+### Lab 15 — Scale & Self-Heal with Deployments
 
 **Goal:** manage many identical Pods with a Deployment — scale up/down and watch it recreate Pods automatically.
 
@@ -1436,7 +1288,7 @@ flowchart TD
    kubectl get pods -w        # -w = watch live (Ctrl+C to stop)
    ```
 
-3. **Delete one Pod — the Deployment recreates it** (self‑healing):
+3. **Delete one Pod — the Deployment recreates it** (self-healing):
 
    ```bash
    kubectl delete pod <pod-name>
@@ -1461,7 +1313,7 @@ flowchart TD
    kubectl get pods
    ```
 
-6. **Change `replicas: 3` → `5` in the file, re‑apply, and watch it scale:**
+6. **Change `replicas: 3` → `5` in the file, re-apply, and watch it scale:**
 
    ```bash
    kubectl apply -f deployment.yaml
@@ -1476,21 +1328,21 @@ flowchart TD
 
 ✅ **Test it:** after deleting a Pod, `kubectl get pods` still shows the full replica count — Kubernetes replaced it.
 
-**Key concepts:** Deployment → ReplicaSet → Pods, `kubectl scale`, self‑healing, `selector` ↔ `template` label match, declarative scaling.
+**Key concepts:** Deployment → ReplicaSet → Pods, `kubectl scale`, self-healing, `selector` ↔ `template` label match, declarative scaling.
 
 ---
 
-<a name="activity-4"></a>
-## Activity 4 — Advanced Kubernetes
+<a name="k8s-scenario-3"></a>
+## Scenario 3 — Rolling Updates
 
-**Goal:** make workloads updatable, reachable, durable, and scheduled — rollouts/rollbacks, Services, Volumes, and Jobs.
+**Lab 16 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day2-03-k8s-rollouts
 
-Folder: [`kubernetes/`](kubernetes/) (labs 16–19)
+**Goal:** ship a new image version with zero downtime and roll back when needed.
 
 ---
 
-<a name="activity-4a"></a>
-### 4a — Rollouts & Rollbacks (Lab 16)
+<a name="lab-16"></a>
+### Lab 16 — Rollouts & Rollbacks
 
 **Goal:** ship a new image version with a rolling update, track revision history, and roll back when needed.
 
@@ -1547,18 +1399,27 @@ flowchart LR
 
 ✅ **Test it:** `grep Image` reflects each new version after `set image`, and reverts after each `rollout undo`.
 
-**Key concepts:** `set image`, rolling update, `rollout status`/`history`/`undo`, `--to-revision`, zero‑downtime deploys.
+**Key concepts:** `set image`, rolling update, `rollout status`/`history`/`undo`, `--to-revision`, zero-downtime deploys.
 
 ---
 
-<a name="activity-4b"></a>
-### 4b — Expose Pods with Services (Lab 17)
+<a name="k8s-scenario-4"></a>
+## Scenario 4 — Services
 
-**Goal:** give Pods a stable network identity. Pods are ephemeral (their IPs change); a Service gives a fixed name + load balancing.
+**Lab 17 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day2-04-k8s-services
+
+**Goal:** give Pods a stable network identity. Pods are ephemeral (their IPs change); a Service gives a fixed name and load balancing.
+
+---
+
+<a name="lab-17"></a>
+### Lab 17 — Expose Pods with Services
+
+**Goal:** give Pods a stable network identity using ClusterIP (internal) and NodePort (external) Services.
 
 Folder: [`kubernetes/lab17/`](kubernetes/lab17/) — includes `deployment.yaml`, `service.yaml`.
 
-A Service uses a **label selector** to find its Pods and load‑balances across them:
+A Service uses a **label selector** to find its Pods and load-balances across them:
 
 ```mermaid
 flowchart TD
@@ -1623,7 +1484,7 @@ flowchart TD
 
 | Type | Reachable from | Use case |
 |---|---|---|
-| `ClusterIP` | inside the cluster only | service‑to‑service |
+| `ClusterIP` | inside the cluster only | service-to-service |
 | `NodePort` | outside via `<NodeIP>:<NodePort>` | development, testing |
 | `LoadBalancer` | external cloud load balancer | production (AWS/GCP/Azure) |
 
@@ -1631,8 +1492,17 @@ flowchart TD
 
 ---
 
-<a name="activity-4c"></a>
-### 4c — Volumes, PV & PVC (Lab 18)
+<a name="k8s-scenario-5"></a>
+## Scenario 5 — Storage & Jobs
+
+**Labs 18–19 · KillerCoda:** https://killercoda.com/tertiarycourses/scenario/day2-05-k8s-storage-jobs
+
+**Goal:** persist data beyond a Pod's life with PersistentVolumes and PersistentVolumeClaims, then run one-off and scheduled workloads with Jobs and CronJobs.
+
+---
+
+<a name="lab-18"></a>
+### Lab 18 — Volumes, PV & PVC
 
 **Goal:** share data between containers in a Pod (`emptyDir`) and persist data beyond a Pod's life with a PersistentVolume + PersistentVolumeClaim.
 
@@ -1648,7 +1518,7 @@ flowchart LR
 
 #### Steps — Part A: Ephemeral `emptyDir` (shared between containers)
 
-1. **Apply a two‑container Pod that shares an `emptyDir`** — a writer and a reader:
+1. **Apply a two-container Pod that shares an `emptyDir`** — a writer and a reader:
 
    ```bash
    kubectl apply -f emptydir-pod.yaml
@@ -1659,7 +1529,7 @@ flowchart LR
 
 #### Steps — Part B & C: PersistentVolume + Claim
 
-2. **Create the PersistentVolume** (admin‑provisioned storage, here a `hostPath`):
+2. **Create the PersistentVolume** (admin-provisioned storage, here a `hostPath`):
 
    ```bash
    kubectl apply -f pv.yaml
@@ -1705,15 +1575,15 @@ flowchart LR
 | Type | Lifetime | Use case |
 |---|---|---|
 | `emptyDir` | deleted with the Pod | temp files, sharing between containers |
-| PersistentVolume (PV) | independent of Pods | admin‑provisioned storage |
+| PersistentVolume (PV) | independent of Pods | admin-provisioned storage |
 | PersistentVolumeClaim (PVC) | bound to a PV | a Pod's request for storage |
 
 **Key concepts:** `emptyDir`, PV vs PVC, binding, `accessModes` (`ReadWriteOnce`), `hostPath`, persistence across Pod restarts.
 
 ---
 
-<a name="activity-4d"></a>
-### 4d — Jobs & CronJobs (Lab 19)
+<a name="lab-19"></a>
+### Lab 19 — Jobs & CronJobs
 
 **Goal:** run a task to completion with a **Job**, and run it on a schedule with a **CronJob**.
 
@@ -1728,7 +1598,7 @@ flowchart TD
 
 #### Steps — Part A: Job (imperative)
 
-1. **Create a one‑shot Job and read its output:**
+1. **Create a one-shot Job and read its output:**
 
    ```bash
    kubectl create job my-job --image=busybox -- echo "Hello from Job!"
@@ -1796,19 +1666,17 @@ flowchart TD
 
 The assessment is **open book** (slides + this Learner Guide). Work in the [`tests/`](tests/) folders. Each test mirrors one course topic.
 
-<a name="test-1"></a>
 ### Test 1 — Docker Fundamentals
 
-Folder: [`tests/test1/`](tests/test1/) — a Flask note‑taking app (`app.py`, `requirements.txt`).
+Folder: [`tests/test1/`](tests/test1/) — a Flask note-taking app (`app.py`, `requirements.txt`).
 
 - **Part A — Write a Dockerfile** that: uses `python:3.12-slim`; `WORKDIR /app`; copies `requirements.txt` then `pip install --no-cache-dir`; copies the rest; sets `ENV DATA_DIR=/app/data` and `ENV APP_PORT=5000`; declares `VOLUME /app/data`; `EXPOSE 5000`; runs `python app.py`.
 - **Part B — Build & run:** tag the image `notes-app`, run it mapped to host port `5001`, add a note with `curl -X POST -d "note=Hello Docker" http://localhost:5001/add`, then read `curl http://localhost:5001/notes`.
 - **Part C — Push to Docker Hub:** tag `<your-username>/notes-app:v1`, push it, and state the `docker pull` command someone else would run.
-- **Part D — Conceptual:** layer order & caching; `EXPOSE` vs `-p`; named vs anonymous volumes; which instructions create layers; what happens to in‑container data on `docker rm`.
+- **Part D — Conceptual:** layer order & caching; `EXPOSE` vs `-p`; named vs anonymous volumes; which instructions create layers; what happens to in-container data on `docker rm`.
 
-> 🔗 Reuses skills from Activities **1c, 1e, 1f, 1g, 1j, 1l**.
+> Reuses skills from Day 1 Scenarios 1–4.
 
-<a name="test-2"></a>
 ### Test 2 — Docker Compose
 
 Folder: [`tests/test2/`](tests/test2/)
@@ -1816,16 +1684,15 @@ Folder: [`tests/test2/`](tests/test2/)
 - **Part A — Write `docker-compose.yml`** with two services: `db` (`mysql:8.0`, env `MYSQL_ROOT_PASSWORD/DATABASE/USER/PASSWORD`, named volume `db-data:/var/lib/mysql`) and `wordpress` (`wordpress:latest`, host `8080`→container `80`, env `WORDPRESS_DB_HOST=db` + creds, `depends_on: db`).
 - **Part B — Run & verify:** `docker compose up -d`, `docker compose ps` (both running), open **http://localhost:8080** to reach the WordPress setup page.
 
-> 🔗 Reuses skills from Activities **2a, 2b, 2c**.
+> Reuses skills from Day 1 Scenario 5.
 
-<a name="test-3"></a>
 ### Test 3 — Kubernetes Core Concepts
 
 Folder: [`tests/test3/`](tests/test3/)
 
 1. Create namespace `ckad-prep`.
 2. In it, create Pod `mypod` with image `nginx:2.3.5`, port 80.
-3. Identify why the container won't start; write the root cause to `pod-error.txt`. *(Hint: it's an image‑pull / bad‑tag issue — see the Troubleshooting table.)*
+3. Identify why the container won't start; write the root cause to `pod-error.txt`. *(Hint: it's an image-pull / bad-tag issue — see the Troubleshooting table.)*
 4. Change the image to `nginx:1.15.12`.
 5. List the Pod and confirm it's `Running`.
 6. Shell in, run `ls`, note the output, exit.
@@ -1834,31 +1701,30 @@ Folder: [`tests/test3/`](tests/test3/)
 9. Show the logs of `mypod`.
 10. Delete the Pod and the namespace.
 
-> 🔗 Reuses skills from Activities **3a, 3b** + the error table below.
+> Reuses skills from Day 2 Scenarios 1–2.
 
-<a name="test-4"></a>
 ### Test 4 — Volumes & Services
 
 Folder: [`tests/test4/`](tests/test4/)
 
-- **Part A — Services:** Deployment `myapp` with 2 `nginx` replicas (port 80); expose it inside the cluster; `wget` it from a temporary `busybox` Pod; switch the Service type so it's reachable from outside; `wget` from outside; *(optional)* expose Pods as a Service without a Deployment.
+- **Part A — Services:** Deployment `myapp` with 2 `nginx` replicas (port 80); expose it inside the cluster; `wget` it from a temporary `busybox` Pod; switch the Service type so it's reachable from outside; `wget` from outside.
 - **Part B — Persistent storage:** PV `my-pv` (1Gi, `hostPath` `/tmp/k8s-data`); PVC `my-pvc` (500Mi); confirm it's `Bound`; Pod `storage-pod` (`busybox`) mounting the PVC at `/data` and writing `"hello from storage"` to `/data/message.txt`; delete + recreate the Pod and confirm the data persists; clean up Pod, PVC, PV.
 
-> 🔗 Reuses skills from Activities **4b, 4c**.
+> Reuses skills from Day 2 Scenarios 4–5.
 
 ---
 
 <a name="troubleshooting"></a>
-## Troubleshooting Cheat‑Sheet
+## Troubleshooting Cheat-Sheet
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `Cannot connect to the Docker daemon` | Docker Desktop isn't running | Start Docker Desktop; wait for the 🐳 icon to settle. |
-| `permission denied` on `docker …` (Linux) | user not in `docker` group | `sudo usermod -aG docker $USER` then re‑login, or prefix `sudo`. |
+| `permission denied` on `docker …` (Linux) | user not in `docker` group | `sudo usermod -aG docker $USER` then re-login, or prefix `sudo`. |
 | `docker compose: command not found` | old Docker / missing plugin | Upgrade Docker Desktop (Compose v2 is built in) or install the `docker-compose-plugin`. |
 | `port is already allocated` | host port already in use | Use a different host port: `-p 5002:5000`, or stop the other container. |
-| App not reachable at `localhost:PORT` | no `-p` published / wrong port | Re‑run with `-p host:container`; check `docker port <name>`. |
-| Container exits immediately | main process ended (e.g. plain `ubuntu`) | Give it a long‑running command (`sleep 3600`) or run `-it` for a shell. |
+| App not reachable at `localhost:PORT` | no `-p` published / wrong port | Re-run with `-p host:container`; check `docker port <name>`. |
+| Container exits immediately | main process ended (e.g. plain `ubuntu`) | Give it a long-running command (`sleep 3600`) or run `-it` for a shell. |
 | Data lost after `docker rm` | data wasn't on a volume | Mount a named volume: `-v my-data:/path`. |
 | Pod stuck `ImagePullBackOff` / `ErrImagePull` | bad image name/tag, no registry access | Check the image name & tag exist; verify network/auth (this is the **Test 3** root cause). |
 | Pod stuck `CrashLoopBackOff` | app/command inside crashes on start | `kubectl logs <pod>` and `kubectl describe pod <pod>` to read the error. |
@@ -1872,12 +1738,12 @@ Folder: [`tests/test4/`](tests/test4/)
 <a name="glossary"></a>
 ## Glossary
 
-- **Image** 📦 — a read‑only blueprint built from a Dockerfile; contains your app + dependencies.
+- **Image** 📦 — a read-only blueprint built from a Dockerfile; contains your app + dependencies.
 - **Container** 🟢 — a running instance of an image.
 - **Dockerfile** 📄 — a text file of instructions (`FROM`, `RUN`, `COPY`, `CMD`…) used to build an image.
 - **Layer** — a cached filesystem diff produced by `FROM`/`RUN`/`COPY`/`ADD`; reused across builds.
 - **Registry / Docker Hub** ☁️ — where images are stored and shared (`docker push`/`pull`).
-- **Volume** 🗄️ — Docker‑managed persistent storage that outlives a container.
+- **Volume** 🗄️ — Docker-managed persistent storage that outlives a container.
 - **Bind mount** 📁 — maps a host folder directly into a container (great for live editing).
 - **Docker Compose** 🧩 — declares and runs multiple containers from one `docker-compose.yml`.
 - **Service (Compose)** — one container definition in a Compose file; reachable by its service name.
@@ -1887,14 +1753,15 @@ Folder: [`tests/test4/`](tests/test4/)
 - **Deployment** 🚀 — manages a ReplicaSet to keep a desired number of Pods running and to roll out updates.
 - **ReplicaSet** — ensures a specified number of identical Pods are always running.
 - **Service (k8s)** 🔌 — a stable network endpoint + load balancer in front of Pods (ClusterIP / NodePort / LoadBalancer).
-- **Selector / Label** — key‑value tags on Pods; Services and ReplicaSets use selectors to find their Pods.
+- **Selector / Label** — key-value tags on Pods; Services and ReplicaSets use selectors to find their Pods.
 - **PersistentVolume (PV)** — cluster storage provisioned independently of any Pod.
 - **PersistentVolumeClaim (PVC)** — a Pod's request for storage that binds to a PV.
 - **Job** 📋 — runs a workload to successful completion.
 - **CronJob** ⏰ — runs Jobs on a cron schedule.
-- **kubectl** 🧑 — the Kubernetes command‑line client (`kubectl [command] [TYPE] [NAME] [flags]`).
-- **Imperative vs Declarative** — `kubectl run`/`create` (quick) vs `kubectl apply -f file.yaml` (repeatable, version‑controlled).
+- **kubectl** 🧑 — the Kubernetes command-line client (`kubectl [command] [TYPE] [NAME] [flags]`).
+- **Imperative vs Declarative** — `kubectl run`/`create` (quick) vs `kubectl apply -f file.yaml` (repeatable, version-controlled).
+- **KillerCoda** — browser-based lab sandbox with Docker and `kubectl` pre-installed; used for all hands-on labs in this course.
 
 ---
 
-Build the activities **in order** — Activity 1 → 4 — then attempt the four practical tests. Start at [Activity 1a — Run Your First Container](#activity-1a). Good luck! 🐳☸️
+Complete Day 1 (Scenarios 1–5) then Day 2 (Scenarios 1–5) in order, then attempt the four practical tests. Good luck! 🐳☸️
