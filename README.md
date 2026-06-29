@@ -5,6 +5,10 @@ Kubernetes** by [Tertiary Infotech Academy Pte. Ltd.](https://www.tertiarycourse
 
 **Course Code:** TGS-2021010366 · **Duration:** 2 days (9:00 AM – 6:00 PM, 8 training hours/day)
 
+> ### 🎓 WSQ – Application Integration with Docker and Kubernetes
+> **Course Code:** TGS-2021010366
+> **Register:** https://www.tertiarycourses.com.sg/wsq-application-integration-with-docker-and-kubernetes.html
+
 Throughout the course you build and deploy one realistic application — **TaskBoard**, a Flask
 task-tracker backed by Redis and PostgreSQL — taking it from a single container, to a
 multi-service Docker Compose stack, to a scalable Kubernetes deployment. The shared app lives
