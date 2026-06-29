@@ -80,7 +80,7 @@ Every sub‑activity follows the same shape — **Goal → Visual → Steps → 
 | **A terminal** | Run `docker` / `kubectl` commands | zsh/bash on macOS or Linux, PowerShell on Windows |
 | **Docker Hub account** (free) | Push/pull images (Labs 9, 9‑2; Test 1) | https://hub.docker.com/ |
 | **A web browser** | Open the apps you run (`http://localhost:…`) | any modern browser |
-| **The lab files** | Dockerfiles, YAML, sample apps | [GitHub repo](https://github.com/tertiarycourses/TGS-2021010366-docker-kubernetes) |
+| **The lab files** | Dockerfiles, YAML, sample apps | [GitHub repo](https://github.com/tertiarycourses/TGS-2021010366-Application-Integration-with-Docker-and-Kubernetes) |
 
 > ⚠️ **No local install?** You can run all the **Kubernetes** labs in a free browser sandbox: **[killercoda.com/playgrounds/scenario/kubernetes](https://killercoda.com/playgrounds/scenario/kubernetes)**. `kubectl` is pre‑installed there.
 
@@ -139,7 +139,7 @@ kubectl get namespaces
 ### 0.4 Download the lab files
 
 ```bash
-git clone https://github.com/tertiarycourses/TGS-2021010366-docker-kubernetes.git
+git clone https://github.com/tertiarycourses/TGS-2021010366-Application-Integration-with-Docker-and-Kubernetes.git
 cd TGS-2021010366-docker-kubernetes
 ```
 
