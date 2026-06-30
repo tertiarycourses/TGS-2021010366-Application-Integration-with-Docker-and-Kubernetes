@@ -27,6 +27,8 @@ for cand in [os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", 
 
 TITLE = "Application Integration with Docker and Kubernetes"
 CODE = "TGS-2021010366"
+VERSION = os.environ.get("DECK_VERSION", "1.0")
+SLUG = "Application-Integration-with-Docker-and-Kubernetes"
 FOOT = f"{TITLE}  ·  {CODE}"
 
 NAVY=RGBColor(0x0B,0x12,0x20); BLUE=RGBColor(0x1F,0x6F,0xEB); TEAL=RGBColor(0x10,0xB9,0x81)
@@ -109,6 +111,7 @@ def cover():
     txt(s,Inches(0.9),Inches(5.25),Inches(12),Inches(1.4),
         [[(f"WSQ Course Code: {CODE}",16,GREY,False)],
          [("Conducted by Tertiary Infotech Academy Pte Ltd  ·  UEN 201200696W",14,GREY,False)]],space=6)
+    txt(s,Inches(11.0),Inches(6.55),Inches(1.85),Inches(0.34),[[(f"Version {VERSION}",13,BLUE,True)]],align=PP_ALIGN.RIGHT)
     txt(s,Inches(0.9),Inches(6.7),Inches(12),Inches(0.34),[[("© 2026 Tertiary Infotech Academy Pte Ltd. All rights reserved.  ·  www.tertiarycourses.com.sg",10,GREY,False)]])
 def section(kicker,title,n,sub=""):
     s=slide(); rect(s,0,0,SW,SH,WHITE); rect(s,0,0,Inches(0.28),SH,BLUE)
@@ -241,6 +244,45 @@ def assessment_twocard():
         [[("Assessed as Competent",15,WHITE,True)],[("Pass the written / MCQ assessment.",13,LT,False)]],space=6)
     footer(s)
 
+def assessment_flow():
+    s=slide(); head(s,"Assessment Flow","ASSESSMENT")
+    txt(s,Inches(0.85),Inches(1.6),Inches(11.6),Inches(0.34),[[("At the assessment stage, follow these five steps in order.",15,GREY,False)]])
+    steps=[("ic_qr","STEP 1","TRAQOM","Scan the TRAQOM QR code on the LMS and complete the survey."),
+           ("ic_attend","STEP 2","Attendance","Take the assessment digital attendance."),
+           ("ic_clip","STEP 3","Assessment","Complete the written / MCQ assessment on the LMS."),
+           ("ic_upload","STEP 4","Submit Answers","Submit your assessment answers on the LMS."),
+           ("ic_sign","STEP 5","Sign the Record","Sign your Assessment Summary Record.")]
+    gap=Inches(0.4); cw=(Inches(11.65)-gap*4)//5; cy,ch=Inches(2.35),Inches(2.7)
+    for k,(icon,step,t,desc) in enumerate(steps):
+        x=Inches(0.85)+k*(cw+gap); rrect(s,x,cy,cw,ch,WHITE if k%2==0 else LIGHT)
+        d=Inches(0.76); idisc(s,x+(cw-d)//2,cy+Inches(0.25),d,icon,BLUE)
+        txt(s,x+Inches(0.1),cy+Inches(1.15),cw-Inches(0.2),Inches(0.3),[[(step,10,BLUE,True)]],align=CENTER)
+        txt(s,x+Inches(0.08),cy+Inches(1.42),cw-Inches(0.16),Inches(0.6),[[(t,13,INK,True)]],align=CENTER)
+        txt(s,x+Inches(0.12),cy+Inches(2.0),cw-Inches(0.24),Inches(0.6),[[(desc,9.5,GREY,False)]],align=CENTER)
+        if k<4: txt(s,x+cw+Inches(0.04),cy+Inches(1.0),Inches(0.32),Inches(0.5),[[("›",28,BLUE,True)]],align=CENTER)
+    txt(s,Inches(0.85),Inches(5.5),Inches(11.6),Inches(0.34),
+        [[("TIP   ",13,TEAL,True),("Courseware & the assessment are on the LMS:  https://lms.tertiaryinfotech.com",13,GREY,False)]])
+    footer(s)
+
+def cert_traqom():
+    s=slide(); head(s,"Certification & TRAQOM Survey","BEFORE YOU GO")
+    cy,ch=Inches(2.0),Inches(3.6); lw=Inches(5.75); lx=Inches(0.85); rx=lx+lw+Inches(0.3)
+    rrect(s,lx,cy,lw,ch,WHITE)
+    d=Inches(0.78); idisc(s,lx+Inches(0.36),cy+Inches(0.36),d,"ic_survey",BLUE)
+    txt(s,lx+Inches(0.36)+d+Inches(0.26),cy+Inches(0.36),lw-Inches(1.5),d,[[("TRAQOM Survey (Mandatory)",17,INK,True)]],anchor=MIDDLE)
+    txt(s,lx+Inches(0.36),cy+Inches(1.5),lw-Inches(0.72),Inches(1.6),
+        [[("Complete the certification & TRAQOM survey to receive your certificate.",14.5,INK,False)],
+         [("lms.tertiaryinfotech.com",14.5,BLUE,True)]],space=8)
+    rrect(s,rx,cy,lw,ch,BLUE,line=None)
+    oval(s,rx+Inches(0.36),cy+Inches(0.36),d,d,RGBColor(0x0B,0x4F,0xC0))
+    icp=os.path.join(ICONS or "","ic_check.png")
+    if ICONS and os.path.exists(icp):
+        pad=int(d*0.27); s.shapes.add_picture(icp,rx+Inches(0.36)+pad,cy+Inches(0.36)+pad,width=d-2*pad,height=d-2*pad)
+    txt(s,rx+Inches(0.36)+d+Inches(0.26),cy+Inches(0.36),lw-Inches(1.5),d,[[("Digital Attendance",17,WHITE,True)]],anchor=MIDDLE)
+    txt(s,rx+Inches(0.36),cy+Inches(1.5),lw-Inches(0.72),Inches(1.6),
+        [[("Remember to take AM, PM and Assessment digital attendance — required for your funding.",14.5,RGBColor(0xCF,0xE0,0xFB),False)]])
+    footer(s)
+
 # ----- code + lab slides (driven by labs_data) -----
 def code_card(s,x,y,w,cd,accent=TEAL):
     n=cd.count("\n")+1; ch=Inches(0.16+0.205*n)
@@ -339,5 +381,6 @@ def lab_deck(num,kicker):
 from build_slides_content import build   # concept slides + sequence
 build(globals())
 
-prs.save(os.path.join(REPO,"courseware","Application-Integration-with-Docker-and-Kubernetes.pptx"))
-print("Saved deck:", PAGE["n"], "numbered slides; total", len(prs.slides.__iter__.__self__._sldIdLst))
+OUT=os.path.join(REPO,"courseware",f"{SLUG}-v{VERSION}.pptx")
+prs.save(OUT)
+print("Saved deck:", os.path.basename(OUT), "|", PAGE["n"], "numbered slides; total", len(prs.slides.__iter__.__self__._sldIdLst))

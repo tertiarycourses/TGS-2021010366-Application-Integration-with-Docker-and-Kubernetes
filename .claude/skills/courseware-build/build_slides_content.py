@@ -7,6 +7,7 @@ def build(g):
     about=g["about_trainer"]; digital_attendance=g["digital_attendance"]
     icon_cards=g["icon_cards"]; grid_cards=g["grid_cards"]; lesson_plan_cards=g["lesson_plan_cards"]
     learning_outcomes=g["learning_outcomes"]; assessment_twocard=g["assessment_twocard"]
+    assessment_flow=g["assessment_flow"]; cert_traqom=g["cert_traqom"]
     lab_deck=g["lab_deck"]
     BLUE=g["BLUE"]; TEAL=g["TEAL"]; VIOLET=g["VIOLET"]; AMBER=g["AMBER"]
 
@@ -207,6 +208,9 @@ def build(g):
     lab_deck(18,"DAY 2 · STORAGE")
     lab_deck(19,"DAY 2 · JOBS & CRONJOBS")
 
-    # ===================================================== CLOSING
+    # ===================================================== ASSESSMENT & CLOSING (admin back matter)
+    section("COURSE CLOSING","Assessment & Wrap-up","")
     assessment_twocard()
+    assessment_flow()
+    cert_traqom()
     big("Congratulations!","You took one app from a single container to a scaled Kubernetes deployment.","THANK YOU",color=TEAL)

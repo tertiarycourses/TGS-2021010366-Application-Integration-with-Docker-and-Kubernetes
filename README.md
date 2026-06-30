@@ -60,7 +60,7 @@ browser on **KillerCoda** (link at the top of each `lab.md`). Practical assessme
 The [`courseware/`](courseware/) folder holds the generated deliverables — all kept 100% in
 sync from one source:
 
-- **Slides** — `Application-Integration-with-Docker-and-Kubernetes.pptx` / `.pdf`
+- **Slides** — `Application-Integration-with-Docker-and-Kubernetes-v1.0.pptx` / `.pdf`
 - **Lesson Plan** — `LP-Application-Integration-with-Docker-and-Kubernetes.docx` / `.pdf`
 - **Learner Guide** — `LG-Application-Integration-with-Docker-and-Kubernetes.docx` / `.pdf`
   (and the Markdown mirror [`LG-Application-Integration-with-Docker-and-Kubernetes.md`](LG-Application-Integration-with-Docker-and-Kubernetes.md))
