@@ -27,7 +27,7 @@ for cand in [os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", 
 
 TITLE = "Application Integration with Docker and Kubernetes"
 CODE = "TGS-2021010366"
-VERSION = os.environ.get("DECK_VERSION", "1.0")
+VERSION = os.environ.get("DECK_VERSION", "21")
 SLUG = "Application-Integration-with-Docker-and-Kubernetes"
 FOOT = f"{TITLE}  ·  {CODE}"
 
