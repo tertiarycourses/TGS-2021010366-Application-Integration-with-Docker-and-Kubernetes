@@ -1,0 +1,15 @@
+{
+  "title": "Day 1 — Lab 6-7: Docker Networking & Port Mapping",
+  "description": "Create custom networks, connect containers by name, and expose ports to the host.",
+  "difficulty": "beginner",
+  "time": "25",
+  "details": {
+    "steps": [
+      {"title": "Lab 6: Custom Networks", "text": "step1/text.md"},
+      {"title": "Lab 7: Port Mapping", "text": "step2/text.md"}
+    ],
+    "intro": {"text": "intro.md"},
+    "finish": {"text": "finish.md"}
+  },
+  "backend": {"imageid": "ubuntu"}
+}
