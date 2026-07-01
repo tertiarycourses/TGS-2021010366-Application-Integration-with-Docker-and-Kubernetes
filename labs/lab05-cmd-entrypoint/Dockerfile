@@ -1,6 +1,5 @@
-FROM python:3.11-slim
-WORKDIR /app
-COPY cli.py .
-# ENTRYPOINT fixes the executable; CMD is the default argument (overridable).
-ENTRYPOINT ["python", "cli.py"]
-CMD ["list"]
+FROM alpine:3.18
+# ENTRYPOINT = the fixed tool (always runs)
+ENTRYPOINT ["ping", "-c", "3"]
+# CMD = the default argument (replaced when you pass args to docker run)
+CMD ["localhost"]
