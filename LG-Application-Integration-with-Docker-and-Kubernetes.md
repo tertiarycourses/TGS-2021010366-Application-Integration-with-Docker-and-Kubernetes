@@ -15,7 +15,7 @@
 - [Lab 2 — Images & Inspecting Containers — pull, cp, inspect](#lab-2-images-&-inspecting-containers-pull-cp-inspect)
 - [Lab 3 — Build the TaskBoard Image with a Dockerfile](#lab-3-build-the-taskboard-image-with-a-dockerfile)
 - [Lab 4 — Dockerfile Best Practices — .dockerignore & layer caching](#lab-4-dockerfile-best-practices-dockerignore-&-layer-caching)
-- [Lab 5 — CMD vs ENTRYPOINT — the taskboard-cli tool](#lab-5-cmd-vs-entrypoint-the-taskboard-cli-tool)
+- [Lab 5 — CMD vs ENTRYPOINT — ping as a flexible tool](#lab-5-cmd-vs-entrypoint-ping-as-a-flexible-tool)
 - [Lab 6 — Docker Storage — Named Volumes & Bind Mounts](#lab-6-docker-storage-named-volumes-&-bind-mounts)
 - [Lab 7 — Docker Networking — Custom Bridge, DNS & Port Mapping](#lab-7-docker-networking-custom-bridge-dns-&-port-mapping)
 - [Lab 8 — Configuration with Environment Variables](#lab-8-configuration-with-environment-variables)
@@ -266,57 +266,72 @@ docker build -t taskboard:slim .
 
 ---
 
-## Lab 5 — CMD vs ENTRYPOINT — the taskboard-cli tool
+## Lab 5 — CMD vs ENTRYPOINT — ping as a flexible tool
 
 **Folder:** `labs/lab05-cmd-entrypoint/`  ·  **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-01-docker-fundamentals
 
 ### Goal
 
-Understand the difference between CMD and ENTRYPOINT by packaging a real command-line tool — `taskboard-cli` — that lists and adds tasks. ENTRYPOINT fixes the program; CMD supplies the default arguments you can override at runtime.
+Understand the difference between CMD and ENTRYPOINT using a self-contained image — no extra files needed. ENTRYPOINT locks in the tool (`ping`); CMD is the default target that students can freely override at runtime.
 
 ### What you'll build
 
-Package taskboard-cli so ENTRYPOINT is fixed and CMD/args are overridable.
+A `pinger` image where ENTRYPOINT is fixed and CMD is overridable — built entirely from Alpine, nothing to copy in.
 
 ### The Dockerfile
 
 ```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY cli.py .
-# ENTRYPOINT fixes the executable; CMD is the default argument (overridable).
-ENTRYPOINT ["python", "cli.py"]
-CMD ["list"]
+FROM alpine:3.18
+# ENTRYPOINT = the fixed tool (always runs)
+ENTRYPOINT ["ping", "-c", "3"]
+# CMD = the default argument (replaced when you pass args to docker run)
+CMD ["localhost"]
 ```
 
-`ENTRYPOINT` is the executable that always runs. `CMD` is the **default argument** — here `list` — which is replaced by anything you pass on `docker run`.
+`ENTRYPOINT` is the executable that always runs. `CMD` is the **default argument** — here `localhost` — which is replaced by anything you pass on `docker run`.
 
 ### Build it
 
 ```bash
-docker build -t taskboard-cli .
+docker build -t pinger .
 ```
 
 ### CMD is the default; run args override it
 
 ```bash
-docker run --rm taskboard-cli                 # runs the default: list
-docker run --rm taskboard-cli add "Buy milk"   # overrides CMD with: add ...
-docker run --rm taskboard-cli add "Ship release"
-docker run --rm taskboard-cli list
+# Default: pings localhost (CMD kicks in)
+docker run --rm pinger
+
+# Override CMD — same image, different target
+docker run --rm pinger 8.8.8.8
+
+docker run --rm pinger google.com
 ```
 
-### ENTRYPOINT vs CMD — the contrast
+### Go further — even ENTRYPOINT can be overridden
+
+```bash
+# --entrypoint flag replaces ENTRYPOINT at runtime
+docker run --rm --entrypoint sh pinger -c "echo I replaced the entrypoint"
+```
+
+### ENTRYPOINT vs CMD — the three tiers of flexibility
+
+| Scenario | Command that runs |
+| --- | --- |
+| `docker run pinger` | `ping -c 3 localhost` (CMD default) |
+| `docker run pinger 8.8.8.8` | `ping -c 3 8.8.8.8` (CMD overridden) |
+| `docker run --entrypoint sh pinger` | `sh` (ENTRYPOINT overridden) |
 
 |  | CMD only | ENTRYPOINT + CMD |
 | --- | --- | --- |
-| Dockerfile | CMD ["python","cli.py","list"] | ENTRYPOINT ["python","cli.py"]<br>CMD ["list"] |
-| `docker run img` | runs list | runs list |
-| `docker run img add x` | tries to run `add` as a command (error) | runs `cli.py add x` ✔ |
+| Dockerfile | `CMD ["ping","-c","3","localhost"]` | `ENTRYPOINT ["ping","-c","3"]`<br>`CMD ["localhost"]` |
+| `docker run img` | pings localhost | pings localhost |
+| `docker run img 8.8.8.8` | tries to run `8.8.8.8` as a command (error) | pings 8.8.8.8 ✔ |
 
-> **Note:** Use **ENTRYPOINT** when the image *is* a specific tool and arguments vary (like our CLI). Use **CMD** alone when you want an easily replaceable default command. Both use the JSON *exec form* `["a","b"]` to avoid an extra shell.
+> **Note:** Use **ENTRYPOINT** when the image *is* a specific tool and arguments vary. Use **CMD** alone when you want an easily replaceable default command. Both use the JSON *exec form* `["a","b"]` to avoid an extra shell process.
 
-> ✅ **Test it:** `docker run --rm taskboard-cli` prints the task list, and `docker run --rm taskboard-cli add "Demo"` adds a task — the same image, different CMD arguments.
+> ✅ **Test it:** `docker run --rm pinger` pings localhost, `docker run --rm pinger 8.8.8.8` pings Google DNS — same image, different argument, zero changes to the Dockerfile.
 
 ---
 
