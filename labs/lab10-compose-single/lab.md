@@ -1,13 +1,19 @@
-# Lab 10: Docker Compose — Single Service
+# Lab 10 — Docker Compose — Single Service
 
-> **Day 1 — Docker · Docker Compose**  
-> KillerCoda: https://killercoda.com/tertiary-labs/course/killercoda/day1-05-docker-compose
+**Folder:** `labs/lab10-compose-single/`  ·  **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-05-docker-compose
 
-**Goal:** Replace long `docker run` commands with a single declarative file. You'll define TaskBoard in a docker-compose.yml and manage it with the compose lifecycle: pull, up, ps, logs, down.
+## Goal
 
-**What you'll build:** Define TaskBoard in docker-compose.yml; manage it with pull / up / ps / logs / down.
+Replace long `docker run` commands with a single declarative file. You'll define TaskBoard in a docker-compose.yml and manage it with the compose lifecycle: pull, up, ps, logs, down.
 
-### The compose file
+## What you'll build
+
+Define TaskBoard in docker-compose.yml; manage it with pull / up / ps / logs / down.
+
+
+---
+
+## Step 1 — The compose file
 
 ```yaml
 services:
@@ -20,7 +26,10 @@ services:
       - APP_TITLE=TaskBoard (Compose)
 ```
 
-### The Compose lifecycle
+
+---
+
+## Step 2 — The Compose lifecycle
 
 ```bash
 docker compose pull        # pull any pre-built images (none to build here)
@@ -30,7 +39,10 @@ docker compose logs web    # logs for the web service
 curl http://localhost:8080/health
 ```
 
-### Tear down
+
+---
+
+## Step 3 — Tear down
 
 ```bash
 docker compose down        # stop and remove containers + network
@@ -38,5 +50,8 @@ docker compose down -v     # also remove named volumes (full reset)
 ```
 
 > **Note:** `docker compose up -d` is idempotent — re-run it after editing the file and Compose only changes what's needed. One file replaces a page of `docker run` flags.
+
+
+---
 
 > ✅ **Test it:** `docker compose up -d` starts the service and http://localhost:8080 serves TaskBoard titled 'TaskBoard (Compose)'; `docker compose down` removes it cleanly.

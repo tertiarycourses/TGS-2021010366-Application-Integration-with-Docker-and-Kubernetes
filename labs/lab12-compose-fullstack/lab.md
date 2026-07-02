@@ -1,13 +1,19 @@
-# Lab 12: Docker Compose — Full-Stack (Web + PostgreSQL + Redis)
+# Lab 12 — Docker Compose — Full-Stack (Web + PostgreSQL + Redis)
 
-> **Day 1 — Docker · Docker Compose**  
-> KillerCoda: https://killercoda.com/tertiary-labs/course/killercoda/day1-05-docker-compose
+**Folder:** `labs/lab12-compose-fullstack/`  ·  **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day1-05-docker-compose
 
-**Goal:** Build the complete TaskBoard stack: the web app backed by PostgreSQL for tasks and Redis for the visit counter, with a health check so the app starts only once the database is ready. This is the architecture you'll deploy to Kubernetes on Day 2.
+## Goal
 
-**What you'll build:** Run TaskBoard + Postgres + Redis with healthchecks and condition-based depends_on.
+Build the complete TaskBoard stack: the web app backed by PostgreSQL for tasks and Redis for the visit counter, with a health check so the app starts only once the database is ready. This is the architecture you'll deploy to Kubernetes on Day 2.
 
-### The full stack
+## What you'll build
+
+Run TaskBoard + Postgres + Redis with healthchecks and condition-based depends_on.
+
+
+---
+
+## Step 1 — The full stack
 
 Three services: `web` (TaskBoard), `db` (PostgreSQL, storing tasks), and `redis` (visit counter). The web service waits for the database's **health check** to pass before it starts, so it never crashes on a not-yet-ready database.
 
@@ -31,7 +37,10 @@ services:
   redis: { image: redis:7-alpine }
 ```
 
-### Run the lifecycle
+
+---
+
+## Step 2 — Run the lifecycle
 
 ```bash
 docker compose pull        # pulls postgres + redis
@@ -40,7 +49,10 @@ docker compose ps           # db shows (healthy)
 docker compose logs web
 ```
 
-### Verify tasks persist in Postgres
+
+---
+
+## Step 3 — Verify tasks persist in Postgres
 
 ```bash
 # add tasks at http://localhost:8080, then prove they're in the DB:
@@ -49,7 +61,10 @@ docker compose restart web
 curl http://localhost:8080/api/tasks   # tasks still there (in Postgres)
 ```
 
-### Tear down
+
+---
+
+## Step 4 — Tear down
 
 ```bash
 docker compose down         # stop & remove containers + network
@@ -57,5 +72,8 @@ docker compose down -v      # also drop the pgdata volume
 ```
 
 > **Note:** This web + database + cache shape is the canonical cloud app. On Day 2 you'll deploy this very app to Kubernetes — as Pods, a Deployment, a Service, and persistent storage.
+
+
+---
 
 > ✅ **Test it:** `docker compose ps` shows `db` as `(healthy)`, tasks added in the browser appear in `SELECT * FROM tasks`, and they survive `docker compose restart web`.

@@ -1,13 +1,19 @@
-# Lab 15: Deployments — Scaling & Self-Healing
+# Lab 15 — Deployments — Scaling & Self-Healing
 
-> **Day 2 — Kubernetes · Deployments**  
-> KillerCoda: https://killercoda.com/tertiary-labs/course/killercoda/day2-02-k8s-deployments
+**Folder:** `labs/lab15-deployments/`  ·  **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-02-k8s-deployments
 
-**Goal:** Run TaskBoard the production way — as a Deployment that keeps a desired number of replicas alive. You'll scale it, watch it self-heal when a Pod is deleted, and manage it both imperatively and from YAML.
+## Goal
 
-**What you'll build:** Create a Deployment, scale it, and watch Kubernetes self-heal a deleted Pod.
+Run TaskBoard the production way — as a Deployment that keeps a desired number of replicas alive. You'll scale it, watch it self-heal when a Pod is deleted, and manage it both imperatively and from YAML.
 
-### Part A — Create and scale (imperative)
+## What you'll build
+
+Create a Deployment, scale it, and watch Kubernetes self-heal a deleted Pod.
+
+
+---
+
+## Step 1 — Create and scale (imperative)
 
 ```bash
 kubectl create deployment taskboard --image=nginx
@@ -17,7 +23,10 @@ kubectl scale deployment taskboard --replicas=3
 kubectl get pods               # now 3 Pods
 ```
 
-### Part B — Watch it self-heal
+
+---
+
+## Step 2 — Watch it self-heal
 
 Delete one Pod and watch the Deployment's ReplicaSet immediately create a replacement to restore the desired count:
 
@@ -27,7 +36,10 @@ kubectl delete pod <one-pod-name>
 kubectl get pods               # a new Pod is already being created
 ```
 
-### Part C — Declarative (deployment.yaml)
+
+---
+
+## Step 3 — Declarative (deployment.yaml)
 
 ```yaml
 apiVersion: apps/v1
@@ -59,5 +71,8 @@ kubectl delete -f deployment.yaml
 ```
 
 > **Note:** A Deployment manages a **ReplicaSet**, which guarantees the desired Pod count is always running — this is the self-healing that naked Pods (Lab 13) lack.
+
+
+---
 
 > ✅ **Test it:** After `kubectl delete pod <name>`, `kubectl get pods` still shows 3 Pods because the Deployment recreated the missing one automatically.

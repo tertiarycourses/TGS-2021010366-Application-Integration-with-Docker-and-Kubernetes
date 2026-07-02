@@ -7,6 +7,7 @@ Dockerfile, docker-compose.yml, Kubernetes YAML), and a labs/README.md index.
 Run:  python3 build_labs.py
 """
 import os
+import re
 import shutil
 import labs_data as L
 
@@ -26,11 +27,19 @@ def fence_lang(code):
     return "bash"
 
 
+def _step_title(raw):
+    """Strip 'Part A — ', 'Part B — ' etc. prefix — step number is added by the renderer."""
+    return re.sub(r'^Part [A-Z] — ', '', raw)
+
+
 def render_md_body(body):
     out = []
+    step_n = 0
     for kind, *rest in body:
         if kind == "h3":
-            out.append(f"### {rest[0]}\n")
+            step_n += 1
+            title = _step_title(rest[0])
+            out.append(f"\n---\n\n## Step {step_n} — {title}\n")
         elif kind == "p":
             out.append(f"{rest[0]}\n")
         elif kind == "steps":
@@ -51,14 +60,14 @@ def render_md_body(body):
 
 
 def render_lab_md(lab):
-    day = "Day 1 — Docker" if lab["day"] == 1 else "Day 2 — Kubernetes"
+    slug = lab["slug"]
     md = []
-    md.append(f"# Lab {lab['num']}: {lab['title']}\n")
-    md.append(f"> **{day} · {lab['topic']}**  \n> KillerCoda: {lab['killercoda']}\n")
-    md.append(f"**Goal:** {lab['goal']}\n")
-    md.append(f"**What you'll build:** {lab['build']}\n")
+    md.append(f"# Lab {lab['num']} — {lab['title']}\n")
+    md.append(f"**Folder:** `labs/{slug}/`  ·  **KillerCoda:** {lab['killercoda']}\n")
+    md.append(f"## Goal\n\n{lab['goal']}\n")
+    md.append(f"## What you'll build\n\n{lab['build']}\n")
     md.append(render_md_body(lab["body"]))
-    md.append(f"> ✅ **Test it:** {lab['test']}\n")
+    md.append(f"\n---\n\n> ✅ **Test it:** {lab['test']}\n")
     return "\n".join(md).rstrip() + "\n"
 
 
@@ -81,7 +90,7 @@ def main():
     for lab in L.LABS:
         folder = os.path.join(LABS_DIR, lab["slug"])
         os.makedirs(folder, exist_ok=True)
-        with open(os.path.join(folder, "lab.md"), "w") as fh:
+        with open(os.path.join(folder, "lab.md"), "w", encoding="utf-8") as fh:
             fh.write(render_lab_md(lab))
         write_files(folder, lab.get("files", []))
 
@@ -90,15 +99,24 @@ def main():
              "Hands-on labs for WSQ course **TGS-2021010366**. Every lab builds on the "
              "**TaskBoard** sample app in [`app/`](app/). Work through them in order.\n",
              "## Day 1 — Docker\n",
-             "| Lab | Topic | Folder |", "| --- | --- | --- |"]
+             "| Lab | Topic | What you build | Folder |",
+             "| --- | --- | --- | --- |"]
     for lab in L.DAY1:
-        lines.append(f"| {lab['num']} | {lab['topic']} | [{lab['slug']}]({lab['slug']}/) |")
-    lines += ["", "## Day 2 — Kubernetes\n", "| Lab | Topic | Folder |", "| --- | --- | --- |"]
+        lines.append(
+            f"| [{lab['num']}]({lab['slug']}/lab.md) | {lab['topic']} "
+            f"| {lab['build']} | [{lab['slug']}]({lab['slug']}/) |"
+        )
+    lines += ["", "## Day 2 — Kubernetes\n",
+              "| Lab | Topic | What you build | Folder |",
+              "| --- | --- | --- | --- |"]
     for lab in L.DAY2:
-        lines.append(f"| {lab['num']} | {lab['topic']} | [{lab['slug']}]({lab['slug']}/) |")
+        lines.append(
+            f"| [{lab['num']}]({lab['slug']}/lab.md) | {lab['topic']} "
+            f"| {lab['build']} | [{lab['slug']}]({lab['slug']}/) |"
+        )
     lines += ["", "## Assessments\n",
               "Practical assessments are in [`assessments/`](assessments/).\n"]
-    with open(os.path.join(LABS_DIR, "README.md"), "w") as fh:
+    with open(os.path.join(LABS_DIR, "README.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines))
 
     print(f"Generated {len(L.LABS)} labs into {LABS_DIR}")

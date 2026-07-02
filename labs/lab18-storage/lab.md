@@ -1,13 +1,19 @@
-# Lab 18: Kubernetes Storage — emptyDir, PV & PVC
+# Lab 18 — Kubernetes Storage — emptyDir, PV & PVC
 
-> **Day 2 — Kubernetes · Storage**  
-> KillerCoda: https://killercoda.com/tertiary-labs/course/killercoda/day2-05-k8s-storage-jobs
+**Folder:** `labs/lab18-storage/`  ·  **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-05-k8s-storage-jobs
 
-**Goal:** Persist data in Kubernetes. You'll share a scratch directory between two containers with `emptyDir`, then provision durable storage with a PersistentVolume and claim it with a PersistentVolumeClaim so data survives Pod deletion.
+## Goal
 
-**What you'll build:** Share data with emptyDir; provision durable storage with a PV + PVC.
+Persist data in Kubernetes. You'll share a scratch directory between two containers with `emptyDir`, then provision durable storage with a PersistentVolume and claim it with a PersistentVolumeClaim so data survives Pod deletion.
 
-### Part A — emptyDir (shared, temporary)
+## What you'll build
+
+Share data with emptyDir; provision durable storage with a PV + PVC.
+
+
+---
+
+## Step 1 — emptyDir (shared, temporary)
 
 `emptyDir` is a scratch volume shared by all containers in a Pod and deleted with the Pod. Here a `writer` container writes a file a `reader` container reads:
 
@@ -41,7 +47,10 @@ kubectl exec shared-pod -c reader -- cat /data/message.txt
 kubectl delete pod shared-pod      # emptyDir data is gone
 ```
 
-### Part B — PersistentVolume & Claim (durable)
+
+---
+
+## Step 2 — PersistentVolume & Claim (durable)
 
 A PV is cluster storage; a PVC requests a slice of it. Bind them, then mount the claim in a Pod:
 
@@ -62,5 +71,8 @@ kubectl delete -f pvc.yaml -f pv.yaml
 ```
 
 > **Note:** This PV/PVC pattern is how a real TaskBoard Postgres database keeps its data in Kubernetes — storage outlives any individual Pod.
+
+
+---
 
 > ✅ **Test it:** After deleting and recreating `pvc-pod`, `kubectl exec pvc-pod -- cat /data/file.txt` still prints `persistent data` — the PVC kept it across Pod deletion.

@@ -1,13 +1,19 @@
-# Lab 19: Jobs & CronJobs — Batch and Scheduled Tasks
+# Lab 19 — Jobs & CronJobs — Batch and Scheduled Tasks
 
-> **Day 2 — Kubernetes · Jobs & CronJobs**  
-> KillerCoda: https://killercoda.com/tertiary-labs/course/killercoda/day2-05-k8s-storage-jobs
+**Folder:** `labs/lab19-jobs-cronjobs/`  ·  **KillerCoda:** https://killercoda.com/tertiary-labs/course/killercoda/day2-05-k8s-storage-jobs
 
-**Goal:** Run work that finishes (unlike a web server that runs forever). A Job runs Pods to completion — perfect for a TaskBoard report — and a CronJob runs Jobs on a schedule, perfect for a nightly cleanup.
+## Goal
 
-**What you'll build:** Run a batch Job (report) to completion and a scheduled CronJob (cleanup).
+Run work that finishes (unlike a web server that runs forever). A Job runs Pods to completion — perfect for a TaskBoard report — and a CronJob runs Jobs on a schedule, perfect for a nightly cleanup.
 
-### Part A — Job (run to completion)
+## What you'll build
+
+Run a batch Job (report) to completion and a scheduled CronJob (cleanup).
+
+
+---
+
+## Step 1 — Job (run to completion)
 
 ```bash
 kubectl create job hello --image=busybox -- echo 'Hello from a Job!'
@@ -42,7 +48,10 @@ kubectl get job taskboard-report # COMPLETIONS climbs to 3/3
 kubectl delete -f job.yaml
 ```
 
-### Part B — CronJob (scheduled)
+
+---
+
+## Step 2 — CronJob (scheduled)
 
 ```yaml
 apiVersion: batch/v1
@@ -72,5 +81,8 @@ kubectl delete -f cronjob.yaml
 ```
 
 > **Note:** Jobs use `restartPolicy: Never` and do **not** restart after success — unlike a Deployment, which keeps Pods running forever. CronJobs use standard cron syntax.
+
+
+---
 
 > ✅ **Test it:** `kubectl get job taskboard-report` reaches `3/3` completions, and after ~1 minute the CronJob has spawned at least one Job visible in `kubectl get jobs`.
