@@ -7,7 +7,7 @@ Kubernetes** by [Tertiary Infotech Academy Pte Ltd](https://www.tertiarycourses.
 |---|---|
 | Course code | `TGS-2021010366` |
 | Programme | WSQ |
-| Duration | 2 days / 16 hours (plus 2 hours of assessment) |
+| Duration | 2 days / 16 hours, including 2 hours of assessment |
 | Skills Framework | Applications Integration — `ICT-DIT-3003-1.1` |
 | Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-application-integration-with-docker-and-kubernetes.html) |
 | Funding | Up to 70% WSQ course-fee funding for eligible learners and employers. Eligibility and terms apply; see the course page. |
