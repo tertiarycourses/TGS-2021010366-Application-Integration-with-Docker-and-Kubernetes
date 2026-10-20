@@ -1,18 +1,30 @@
 # Application Integration with Docker and Kubernetes
 
 Hands-on labs and courseware for the WSQ course **Application Integration with Docker and
-Kubernetes** by [Tertiary Infotech Academy Pte. Ltd.](https://www.tertiarycourses.com.sg/)
+Kubernetes** by [Tertiary Infotech Academy Pte Ltd](https://www.tertiarycourses.com.sg/).
 
-**Course Code:** TGS-2021010366 · **Duration:** 2 days (9:00 AM – 6:00 PM, 8 training hours/day)
+| Course detail | Information |
+|---|---|
+| Course code | `TGS-2021010366` |
+| Programme | WSQ |
+| Duration | 2 days / 16 hours (plus 2 hours of assessment) |
+| Skills Framework | Applications Integration — `ICT-DIT-3003-1.1` |
+| Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-application-integration-with-docker-and-kubernetes.html) |
+| Funding | Up to 70% WSQ course-fee funding for eligible learners and employers. Eligibility and terms apply; see the course page. |
 
-> ### 🎓 WSQ – Application Integration with Docker and Kubernetes
-> **Course Code:** TGS-2021010366
-> **Register:** https://www.tertiarycourses.com.sg/wsq-application-integration-with-docker-and-kubernetes.html
+## About the course
 
 Throughout the course you build and deploy one realistic application — **TaskBoard**, a Flask
 task-tracker backed by Redis and PostgreSQL — taking it from a single container, to a
 multi-service Docker Compose stack, to a scalable Kubernetes deployment. The shared app lives
 in [`labs/app/`](labs/app/).
+
+## Learning outcomes
+
+- **LO1:** Perform application assessment and connection using Docker containers.
+- **LO2:** Integrate functions and support API integration using Docker containers.
+- **LO3:** Perform test and verifications across multiple platforms using Kubernetes.
+- **LO4:** Perform troubleshooting and upgrade on Kubernetes.
 
 ## Topics covered
 
@@ -83,3 +95,14 @@ cd labs/lab01-docker-commands
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Docker Engine + Compose)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) and a local cluster (minikube / kind) for Day 2 — or just use KillerCoda
 - A free [Docker Hub](https://hub.docker.com/) account (Lab 9)
+
+## Distribution boundary
+
+This repository publishes the learner-facing courseware and labs. The assessment answer keys
+(`assessment/`), source references (`reference/`), and the Facilitator Guide and Assessment Plan
+are trainer-only and are not pushed to GitHub. Learners download the course material from the LMS
+at https://lms-tms.tertiaryinfotech.com.
+
+## Provider
+
+Developed and delivered by [Tertiary Infotech Academy Pte Ltd](https://www.tertiarycourses.com.sg/) (UEN 201200696W).
